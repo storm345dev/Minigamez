@@ -1,0 +1,10 @@
+name: Minigamez
+main: com.stormdev.minigamez.main.minigamez
+version: 1
+commands:
+   demo:
+        description: This is how to setup a command
+        usage: /<command> is a test command
+        permission: perm.node
+        permission-message: You don't have access to this command
+        default: true
