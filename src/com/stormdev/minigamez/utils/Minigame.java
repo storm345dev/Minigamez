@@ -116,10 +116,16 @@ public class Minigame {
 	}
 	public void startCountDown(){
 		Arena gameArena = this.getArena();
-		this.setCount(gameArena.getCountdownStartPoint());
+		//if option for countdown in game:
+		/*
+		this.setCount();
 		final Minigame game = this;
 		if(gameArena.getDoCountdown()){
-			
+		*/
+			//end
+		final Minigame game = this;
+		Boolean option = false;
+			if(option){
 			this.countDown = minigamez.plugin.getServer().getScheduler().runTaskTimer(minigamez.plugin, new Runnable(){
 				@Override
 				public void run() {
