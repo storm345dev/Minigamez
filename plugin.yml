@@ -1,6 +1,7 @@
 name: Minigamez
 main: com.stormdev.minigamez.main.minigamez
 version: 1
+softdepend: [uCars]
 commands:
    demo:
         description: This is how to setup a command
