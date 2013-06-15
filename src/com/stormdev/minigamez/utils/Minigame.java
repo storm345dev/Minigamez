@@ -34,10 +34,10 @@ public class Minigame {
 	private BukkitTask task = null;
 	private Scoreboard teams = null;
 	private BukkitTask countDown = null;
-	public Map<Object,Object> gameOptions;
+	public Map<String,Option> gameOptions = new HashMap<String, Option>();
 	private int count = 50;
 	public HashMap<String, Integer> lives = new HashMap<String, Integer>();
-	public Minigame(Arena arena, String arenaName, String name, Map<Object,Object> gameOptions){
+	public Minigame(Arena arena, String arenaName, String name, Map<String,Option> gameOptions){
 		this.gameId = UniqueString.generate();
 		this.arena = arena;
 		this.gameType = arena.getType();

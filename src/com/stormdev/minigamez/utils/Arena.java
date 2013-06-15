@@ -2,6 +2,7 @@ package com.stormdev.minigamez.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -12,7 +13,7 @@ import org.bukkit.block.Block;
 import com.stormdev.minigamez.main.minigamez;
 
 public class Arena implements Serializable {
-	private static final long serialVersionUID = 8650311534439769069L;
+	private static final long serialVersionUID = -4717148066333846981L;
 	private SerializableLocation center;
 	private int radius = 0;
 	private ArenaShape shape = ArenaShape.INVALID;
@@ -20,6 +21,7 @@ public class Arena implements Serializable {
 	private int playerLimit = 0;
 	private Boolean transitioning = false;
 	private List<String> players = new ArrayList<String>();
+	private HashMap<String, Option> options = new HashMap<String, Option>();
 	public String game;
 public Arena(Location center, int radius, ArenaShape shape, ArenaType type, int playerLimit, String game){
 	this.center = minigamez.plugin.invalidLoc;
@@ -35,6 +37,33 @@ public Arena(Location center, int radius, ArenaShape shape, ArenaType type, int 
 	}
 	this.playerLimit = playerLimit;
 	
+}
+public HashMap<String, Option> getOptions(){
+	return this.options;
+}
+public Option getOption(String key){
+	if(!this.options.containsKey(key)){
+		return null;
+	}
+	return this.options.get(key);
+}
+public Boolean validate(){
+	for(Option opt:this.options.values()){
+		if(opt.type == OptionType.INVALID){
+			return false;
+		}
+		if(opt.type == OptionType.COMPULSARY && opt.val == null){
+			return false;
+		}
+	}
+	return true;
+}
+public Boolean setOption(String key, Option val){
+	if(val.type == OptionType.INVALID || val.type == OptionType.GAME){
+		return false;
+	}
+	this.options.put(key, val);
+	return true;
 }
 public void setTransitioning(Boolean trans){
 	this.transitioning = trans;
