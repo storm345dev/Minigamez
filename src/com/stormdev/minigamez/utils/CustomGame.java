@@ -3,10 +3,8 @@ package com.stormdev.minigamez.utils;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import com.stormdev.minigamez.main.minigamez;
-
 public class CustomGame implements Serializable {
-	private static final long serialVersionUID = -5516249235793636337L;
+	private static final long serialVersionUID = 5522536924802473540L;
 	private HashMap<String, Option> options = new HashMap<String, Option>();
 	private int playerLimit = 0;
 	public void setPlayerLimit(int limit){
