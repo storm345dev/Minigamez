@@ -87,7 +87,7 @@ public class GameScheduler {
 							plugin.minigamesArenas.setArena(aname, arena);
 							return;
 						}
-						Minigame game = new Minigame(arena, aname); //Add new stuff when the cartridge system is ready
+						Minigame game = new Minigame(arena, aname, arena.game, arena.getOptions()); //Add new stuff when the cartridge system is ready
 						List<String> aquep = new ArrayList<String>();
 						aquep.addAll(arena.getPlayers());
 						for(String name:aquep){

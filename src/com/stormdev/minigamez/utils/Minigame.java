@@ -17,7 +17,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.stormdev.minigamez.main.minigamez;
 
 public class Minigame {
-	public String name;
+	public String gamename;
 	private ArenaType gameType = ArenaType.INAVLID;
 	private List<String> players = new ArrayList<String>();
 	private List<String> inplayers = new ArrayList<String>();
@@ -37,12 +37,12 @@ public class Minigame {
 	public Map<String,Option> gameOptions = new HashMap<String, Option>();
 	private int count = 50;
 	public HashMap<String, Integer> lives = new HashMap<String, Integer>();
-	public Minigame(Arena arena, String arenaName, String name, Map<String,Option> gameOptions){
+	public Minigame(Arena arena, String arenaName, String gamename, Map<String,Option> gameOptions){
 		this.gameId = UniqueString.generate();
 		this.arena = arena;
 		this.gameType = arena.getType();
 		this.arenaName = arenaName;
-		this.name = name;
+		this.gamename = gamename;
 		this.gameOptions = gameOptions;
 		this.teams = minigamez.plugin.getServer().getScoreboardManager().getMainScoreboard();
 	}

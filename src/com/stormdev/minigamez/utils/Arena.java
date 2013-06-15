@@ -36,7 +36,7 @@ public Arena(Location center, int radius, ArenaShape shape, ArenaType type, int 
 	this.type = type;
 	}
 	this.playerLimit = playerLimit;
-	
+	this.game = game;
 }
 public HashMap<String, Option> getOptions(){
 	return this.options;
