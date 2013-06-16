@@ -27,7 +27,6 @@ import org.bukkit.scoreboard.Team;
 import com.stormdev.minigamez.utils.Arena;
 import com.stormdev.minigamez.utils.Arenas;
 import com.stormdev.minigamez.utils.GameScheduler;
-import com.stormdev.minigamez.utils.ListStore;
 import com.stormdev.minigamez.utils.Lobbies;
 import com.stormdev.minigamez.utils.LobbyManager;
 import com.stormdev.minigamez.utils.MinigameMethods;
@@ -209,6 +208,15 @@ public void onEnable(){
 	}
 	pluginFolder = this.getDataFolder().getAbsolutePath();
 	(new File(pluginFolder)).mkdirs();
+	File lobbyLocsFile = new File(minigamez.plugin.pluginFolder + File.separator + "GameLobbieLocations.bin");
+	if(!lobbyLocsFile.exists() || lobbyLocsFile.length() < 1){
+		try {
+			lobbyLocsFile.createNewFile();
+			saveHashMapSloc(new HashMap<String, SerializableLocation>(), lobbyLocsFile.getAbsolutePath());
+		} catch (Exception e) {
+			getLogger().info("Failed to create lobbyLocations file!");
+		}
+	}
 	this.mgLobbies = new Lobbies();
 	File lobbyFile = new File(getDataFolder().getAbsolutePath()+File.separator+"mgLobbies.lobbylist");
 	if(!lobbyFile.exists() || lobbyFile.length() < 1){

@@ -15,9 +15,9 @@ public class Lobbies implements Serializable {
 	public Lobbies(){
 		if(!(saveFile.exists() || saveFile.length() > 0)){
 			try {
-				saveFile.mkdir();
 				saveFile.createNewFile();
-			} catch (IOException e) {
+				minigamez.saveHashMapSloc(locs, saveFile.getAbsolutePath());
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -25,9 +25,9 @@ public class Lobbies implements Serializable {
 			this.locs = minigamez.loadHashMapSerializableLocation(saveFile.getAbsolutePath());
 		} catch (Exception e) {
 			try {
-				saveFile.mkdir();
 				saveFile.createNewFile();
-			} catch (IOException e1) {
+				minigamez.saveHashMapSloc(locs, saveFile.getAbsolutePath());
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
