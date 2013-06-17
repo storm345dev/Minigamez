@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,9 +37,18 @@ import javax.swing.JSplitPane;
 public class WindowArea extends JFrame implements ActionListener,ChangeListener {
 	JPanel pane = new JPanel();
 	//int numberOfOptions = 1; //TODO ALWAYS update this
-	JPanel optionsPane = new JPanel(new GridLayout());
+	JPanel optionsPane = new JPanel(new GridLayout(0,1));
 	JPanel optionSettingsPane = new JPanel();
 	JLabel spacer = new JLabel(" ");
+	JLabel spacer1 = new JLabel(" ");
+	JLabel spacer2 = new JLabel(" ");
+	JLabel spacer3 = new JLabel(" ");
+	JLabel spacer4 = new JLabel(" ");
+	JLabel spacer5 = new JLabel(" ");
+	JLabel spacer6 = new JLabel(" ");
+	JLabel spacer7 = new JLabel(" ");
+	JLabel spacer8 = new JLabel(" ");
+	JLabel spacer9 = new JLabel(" ");
 	  JLabel result = new JLabel();
 	  JButton saveButton = new JButton();
 	  JButton loadButton = new JButton();
@@ -50,15 +60,20 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JScrollPane scrollPane = new JScrollPane(optionsPane);
 	  private JScrollPane scrollPane_1 = new JScrollPane(optionSettingsPane);
 	  private final JButton btnPlayerCount = new JButton("Player count");
-	  private final JButton savePlayerCount = new JButton("Validate!");
+	  private final JButton btnTeamSettings = new JButton("Team settings");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
+	  private JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
+	  JCheckBox useTeams = new JCheckBox("Use teams", true);
+	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
+	  JTextField teams = new JTextField(16);
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 
 	    
-	    optionsPane.add(btnPlayerCount);setBounds(100,100,1000,600);
+	    optionsPane.add(btnPlayerCount);
+	    optionsPane.add(btnTeamSettings);setBounds(100,100,1000,600);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    Container con = this.getContentPane(); // inherit main frame
 	    con.add(pane, BorderLayout.NORTH); // add the panel to frame
@@ -76,8 +91,6 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    saveButton.setText("Create!");
 	    loadButton.addActionListener(this);
 	    loadButton.setText("Load!");
-	    savePlayerCount.addActionListener(this);
-	    savePlayerCount.setText("Validate!");
 	    pane.add(saveButton);
 	    pane.add(loadButton);
 	    pane.add(result);
@@ -105,8 +118,19 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsPlayerCount.add(playerCountOptionsTitle); optionsPlayerCount.add(spacer); //optionsPlayerCount.add(spacer);  optionsPlayerCount.add(spacer); 
 	    optionsPlayerCount.add(new JLabel("Minimum players:")); optionsPlayerCount.add(minPlayers); //optionsPlayerCount.add(spacer);
 	    optionsPlayerCount.add(new JLabel("Maximum players:")); optionsPlayerCount.add(maxPlayers); //optionsPlayerCount.add(spacer);
-	    optionsPlayerCount.add(savePlayerCount); //optionsPlayerCount.add(spacer);
+//optionsPlayerCount.add(spacer);
 	    //end player count options page
+	  //start player count teams page
+	    btnTeamSettings.addActionListener(this);
+	    JLabel teamSettingsTitle = new JLabel("Team Settings:");
+	    teamSettingsTitle.setFont(title);
+	    optionsTeamSettings.add(teamSettingsTitle); optionsTeamSettings.add(spacer1); //optionsPlayerCount.add(spacer);  optionsPlayerCount.add(spacer); 
+	    optionsTeamSettings.add(useTeams); optionsTeamSettings.add(spacer2);
+	    teams.setText("Blue,Red");
+	    optionsTeamSettings.add(new JLabel("Team names(separated by ','):")); optionsTeamSettings.add(teams); //optionsPlayerCount.add(spacer);
+	    optionsTeamSettings.add(arenaCustomTeams);
+//optionsPlayerCount.add(spacer);
+	    //end player count teams page
 	  }
 	  
 	  public void actionPerformed(ActionEvent event)
@@ -136,45 +160,13 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    	setPanelComponent(optionSettingsPane, optionsPlayerCount);
 	      return;
 	    }
-	    if (source == savePlayerCount)
+	    if (source == btnTeamSettings)
 	    {
-	    	Boolean valid = true;
-	    System.out.println("Saving change in player count options");
-	      String minP = minPlayers.getText();
-	      int minimum = 2;
-	      try {
-			minimum = Integer.parseInt(minP);
-		} catch (NumberFormatException e1) {
-			minPlayers.setText("2");
-			popUpMsg("Minimum must be a number!", "ERROR");
-			valid = false;
-		}
-	      if(minimum < 1){
-	    	  minPlayers.setText("2");
-				popUpMsg("Minimum must be at least 1!", "ERROR");
-				valid = false;
-	      }
+	    	System.out.println("Option: Team Settings");
+	    	setPanelComponent(optionSettingsPane, optionsTeamSettings);
+	      return;
+	    }
 	    
-	    String maxP = maxPlayers.getText();
-	      int maximum = 2;
-	      try {
-			maximum = Integer.parseInt(maxP);
-		} catch (NumberFormatException e1) {
-			maxPlayers.setText("4");
-			popUpMsg("Maximum must be a number!", "ERROR");
-			valid = false;
-		}
-	      if(maximum < 1){
-	    	  maxPlayers.setText("2");
-				popUpMsg("Maximum must be at least 1!", "ERROR");
-				valid = false;
-	      }
-	    if(!valid){
-	    	return;
-	    }
-	    //save it
-	    //this.save();
-	    }
       }
 	  public void popUpMsg(String msg, String title){
 		  JOptionPane.showMessageDialog(null,msg,title,

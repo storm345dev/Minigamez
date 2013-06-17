@@ -69,9 +69,27 @@ public class CustomGameSaver {
 			System.out.println("Invalid players counts... Aborted save");
 			return false;
 	    }
+	    Boolean useTeams = window.useTeams.isSelected();
+	    Boolean customTeamNamesInArenas = window.arenaCustomTeams.isSelected();
+	    String teamsRaw = window.teams.getText();
+	    String[] teams = teamsRaw.split(",");
+	    int teamCount = teams.length;
+	    if(useTeams && teamCount < 1){
+	    	window.popUpMsg("Invalid teams-Teams are selected, but there are none!", "ERROR");
+			System.out.println("Invalid teams... Aborted save");
+			return false;
+	    }
 	    game.setOption("header.name", new Option(gname, OptionType.GAME));
 	    game.setOption("playerCount.min", new Option(minimum, OptionType.GAME));
 	    game.setOption("playerCount.max", new Option(maximum, OptionType.GAME));
+	    game.setOption("teams.use", new Option(useTeams, OptionType.GAME));
+	    game.setOption("teams.number", new Option(teamCount, OptionType.GAME));
+	    if(customTeamNamesInArenas){
+	    game.setOption("teams.teams", new Option(teams, OptionType.ARENA));
+	    }
+	    else{
+	    game.setOption("teams.teams", new Option(teams, OptionType.GAME));
+	    }
 	    //TODO write to file
 	    String loc = new File("").getAbsolutePath();
 	    new File(loc + File.separator + "Minigamez" + File.separator + "myGames").mkdirs();
