@@ -1,5 +1,13 @@
 package com.stormdev.minigamez.editor;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import com.stormdev.minigamez.main.minigamez;
 import com.stormdev.minigamez.utils.CustomGame;
 import com.stormdev.minigamez.utils.Option;
 import com.stormdev.minigamez.utils.OptionType;
@@ -9,6 +17,11 @@ public class CustomGameSaver {
 		CustomGame game = new CustomGame();
 		String gname = window.gameName.getText();
 		if(gname == null || gname == "" || gname.contains(".") || gname.contains("/") || gname.contains("\\")){
+			window.popUpMsg("Invalid game name!", "ERROR");
+			System.out.println("Invalid game name... Aborted save");
+			return false;
+		}
+		if(gname.length() < 1){
 			window.popUpMsg("Invalid game name!", "ERROR");
 			System.out.println("Invalid game name... Aborted save");
 			return false;
@@ -41,8 +54,14 @@ public class CustomGameSaver {
 			valid = false;
 		}
 	      if(maximum < 1){
-	    	  window.maxPlayers.setText("2");
+	    	  window.maxPlayers.setText("4");
 				window.popUpMsg("Maximum must be at least 1!", "ERROR");
+				valid = false;
+	      }
+	      if(minimum > maximum){
+	    	  window.maxPlayers.setText("4");
+	    	  window.minPlayers.setText("2");
+				window.popUpMsg("Minimum amount of players must be less than the maximum!", "ERROR");
 				valid = false;
 	      }
 	    if(!valid){
@@ -54,6 +73,27 @@ public class CustomGameSaver {
 	    game.setOption("playerCount.min", new Option(minimum, OptionType.GAME));
 	    game.setOption("playerCount.max", new Option(maximum, OptionType.GAME));
 	    //TODO write to file
+	    String loc = new File("").getAbsolutePath();
+	    new File(loc + File.separator + "Minigamez" + File.separator + "myGames").mkdirs();
+	    String path = loc + File.separator + "Minigamez" + File.separator + "myGames" + File.separator + gname+".minigame"; //TODO find out path to write file
+	    System.out.println("Save path: "+path);
+	    File toSave = new File(path);
+	    if(!(toSave.exists() || toSave.length() > 0)){
+	    	try {
+				toSave.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    }
+	    try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
+			oos.writeObject(game);
+			oos.flush();
+			oos.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	    System.out.println("Saved!");
 	    return true;
 	}
 
