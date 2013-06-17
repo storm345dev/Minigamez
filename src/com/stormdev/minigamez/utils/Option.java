@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class Option implements Serializable {
 	private static final long serialVersionUID = 8287691824216531461L;
-public Object val = null;
+public Option(Object val, OptionType type){
+	this.val = val;
+	this.type = type;
+}
+	public Object val = null;
 public OptionType type = OptionType.INVALID;
 public Object getValue(){
 	return this.val;

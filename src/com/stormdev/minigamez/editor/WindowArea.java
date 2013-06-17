@@ -50,7 +50,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JScrollPane scrollPane = new JScrollPane(optionsPane);
 	  private JScrollPane scrollPane_1 = new JScrollPane(optionSettingsPane);
 	  private final JButton btnPlayerCount = new JButton("Player count");
-	  private final JButton savePlayerCount = new JButton("Save!");
+	  private final JButton savePlayerCount = new JButton("Validate!");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
@@ -115,7 +115,13 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    if (source == saveButton)
 	    {
 	    	//TODO save script
-	      result.setText("Saved!");
+	    	Boolean success = this.save();
+	    	if(success){
+	    		result.setText("Saved!");
+	    	}
+	    	else{
+	    		result.setText("Invalid!");
+	    	}
 	      return;
 	    }
 	    if (source == loadButton)
@@ -167,6 +173,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    	return;
 	    }
 	    //save it
+	    //this.save();
 	    }
       }
 	  public void popUpMsg(String msg, String title){
@@ -190,6 +197,9 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	@Override
 	public void stateChanged(ChangeEvent event) {
 		Object source = event.getSource();
+	}
+	public Boolean save(){
+		return CustomGameSaver.save(this);
 	}
 
 	

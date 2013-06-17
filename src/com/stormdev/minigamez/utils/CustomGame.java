@@ -7,6 +7,7 @@ public class CustomGame implements Serializable {
 	private static final long serialVersionUID = 5522536924802473540L;
 	private HashMap<String, Option> options = new HashMap<String, Option>();
 	private int playerLimit = 0;
+	public String name;
 	public void setPlayerLimit(int limit){
 		this.playerLimit = limit;
 		return;
