@@ -77,7 +77,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    loadButton.addActionListener(this);
 	    loadButton.setText("Load!");
 	    savePlayerCount.addActionListener(this);
-	    savePlayerCount.setText("Save!");
+	    savePlayerCount.setText("Validate!");
 	    pane.add(saveButton);
 	    pane.add(loadButton);
 	    pane.add(result);

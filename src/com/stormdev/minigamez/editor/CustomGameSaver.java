@@ -93,7 +93,8 @@ public class CustomGameSaver {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	    System.out.println("Saved!");
+	    System.out.println("Saved successfully!");
+	    window.popUpMsg("Successfully saved to: "+toSave.getAbsolutePath()+"!", "Saved!");
 	    return true;
 	}
 
