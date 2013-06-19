@@ -26,6 +26,11 @@ public class CustomGameSaver {
 			System.out.println("Invalid game name... Aborted save");
 			return false;
 		}
+		if(gname.contains(" ")){
+			window.popUpMsg("Game name cannot contain spaces!", "ERROR");
+			System.out.println("Game name cannot contain spaces... Aborted save");
+			return false;
+		}
 		game.name = gname;
 		Boolean valid = true;
 	    System.out.println("Saving change in player count options");
@@ -73,6 +78,13 @@ public class CustomGameSaver {
 	    Boolean customTeamNamesInArenas = window.arenaCustomTeams.isSelected();
 	    String teamsRaw = window.teams.getText();
 	    String[] teams = teamsRaw.split(",");
+	    for(String team:teams){
+	    	if(team.contains(" ")){
+	    		window.popUpMsg("Team named "+team+" shouldn't contain spaces in it's name!", "ERROR");
+				System.out.println("Teams cannot contain spaces... Aborted save");
+				return false;
+	    	}
+	    }
 	    int teamCount = teams.length;
 	    if(useTeams && teamCount < 1){
 	    	window.popUpMsg("Invalid teams-Teams are selected, but there are none!", "ERROR");

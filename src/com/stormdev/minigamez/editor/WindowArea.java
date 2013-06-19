@@ -36,7 +36,6 @@ import javax.swing.JSplitPane;
 
 public class WindowArea extends JFrame implements ActionListener,ChangeListener {
 	JPanel pane = new JPanel();
-	//int numberOfOptions = 1; //TODO ALWAYS update this
 	JPanel optionsPane = new JPanel(new GridLayout(0,1));
 	JPanel optionSettingsPane = new JPanel();
 	JLabel spacer = new JLabel(" ");
@@ -59,21 +58,25 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JSplitPane splitPane = new JSplitPane();
 	  private final JScrollPane scrollPane = new JScrollPane(optionsPane);
 	  private JScrollPane scrollPane_1 = new JScrollPane(optionSettingsPane);
-	  private final JButton btnPlayerCount = new JButton("Player count");
+	  private final JButton btnPlayerCount = new JButton("Player settings");
 	  private final JButton btnTeamSettings = new JButton("Team settings");
+	  private final JButton btnLocationSettings = new JButton("Locations");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
 	  private JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsPlayerSettings = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JTextField teams = new JTextField(16);
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 
-	    
 	    optionsPane.add(btnPlayerCount);
-	    optionsPane.add(btnTeamSettings);setBounds(100,100,1000,600);
+	    optionsPane.add(btnTeamSettings);
+	    optionsPane.add(btnLocationSettings);
+	    setBounds(100,100,1000,600);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    Container con = this.getContentPane(); // inherit main frame
 	    con.add(pane, BorderLayout.NORTH); // add the panel to frame
@@ -107,9 +110,10 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    splitPane.setDividerLocation(200);
 	    setVisible(true); // display this frame
 	    Font title = new Font("Title", Font.BOLD, 36);
-	    //start player count options page
 	    btnPlayerCount.addActionListener(this);
-	    JLabel playerCountOptionsTitle = new JLabel("Player Count:");
+	    btnLocationSettings.addActionListener(this);
+	  //start player count options page
+	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
 	    minPlayers.setText("2");
 	    minPlayers.addActionListener(this);
@@ -131,6 +135,15 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsTeamSettings.add(arenaCustomTeams);
 //optionsPlayerCount.add(spacer);
 	    //end player count teams page
+	    //start player settings page
+	    //TODO
+	    //end player settings page
+	    //start locations settings page
+	    JLabel locationOptionsTitle = new JLabel("Location settings:");
+	    locationOptionsTitle.setFont(title);
+	    optionsLocationSettings.add(locationOptionsTitle); optionsLocationSettings.add(spacer3);
+	    //TODO
+	    //end locations settings page
 	  }
 	  
 	  public void actionPerformed(ActionEvent event)
@@ -138,7 +151,6 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    Object source = event.getSource();
 	    if (source == saveButton)
 	    {
-	    	//TODO save script
 	    	Boolean success = this.save();
 	    	if(success){
 	    		result.setText("Saved!");
@@ -164,6 +176,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    {
 	    	System.out.println("Option: Team Settings");
 	    	setPanelComponent(optionSettingsPane, optionsTeamSettings);
+	      return;
+	    }
+	    if (source == btnLocationSettings)
+	    {
+	    	System.out.println("Option: Location Settings");
+	    	setPanelComponent(optionSettingsPane, optionsLocationSettings);
 	      return;
 	    }
 	    
