@@ -16,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -48,6 +49,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	JLabel spacer7 = new JLabel(" ");
 	JLabel spacer8 = new JLabel(" ");
 	JLabel spacer9 = new JLabel(" ");
+	Locations locations = new Locations(this);
 	  JLabel result = new JLabel();
 	  JButton saveButton = new JButton();
 	  JButton loadButton = new JButton();
@@ -112,7 +114,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    Font title = new Font("Title", Font.BOLD, 36);
 	    btnPlayerCount.addActionListener(this);
 	    btnLocationSettings.addActionListener(this);
-	  //start player count options page
+	  //start player options page
 	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
 	    minPlayers.setText("2");
@@ -123,8 +125,8 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsPlayerCount.add(new JLabel("Minimum players:")); optionsPlayerCount.add(minPlayers); //optionsPlayerCount.add(spacer);
 	    optionsPlayerCount.add(new JLabel("Maximum players:")); optionsPlayerCount.add(maxPlayers); //optionsPlayerCount.add(spacer);
 //optionsPlayerCount.add(spacer);
-	    //end player count options page
-	  //start player count teams page
+	    //end player options page
+	  //start teams page
 	    btnTeamSettings.addActionListener(this);
 	    JLabel teamSettingsTitle = new JLabel("Team Settings:");
 	    teamSettingsTitle.setFont(title);
@@ -134,14 +136,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsTeamSettings.add(new JLabel("Team names(separated by ','):")); optionsTeamSettings.add(teams); //optionsPlayerCount.add(spacer);
 	    optionsTeamSettings.add(arenaCustomTeams);
 //optionsPlayerCount.add(spacer);
-	    //end player count teams page
-	    //start player settings page
-	    //TODO
-	    //end player settings page
+	    //end teams page
 	    //start locations settings page
 	    JLabel locationOptionsTitle = new JLabel("Location settings:");
 	    locationOptionsTitle.setFont(title);
 	    optionsLocationSettings.add(locationOptionsTitle); optionsLocationSettings.add(spacer3);
+	    optionsLocationSettings.add(locations);
 	    //TODO
 	    //end locations settings page
 	  }
@@ -182,6 +182,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    {
 	    	System.out.println("Option: Location Settings");
 	    	setPanelComponent(optionSettingsPane, optionsLocationSettings);
+	    	locations.draw();
 	      return;
 	    }
 	    
@@ -203,7 +204,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 		  setBounds(size);
 		  return;
 	  }
-
+    public void refresh(){
+    	Rectangle size = getBounds();
+		  pack();
+		  setBounds(size);
+		  return;
+    }
 	@Override
 	public void stateChanged(ChangeEvent event) {
 		Object source = event.getSource();
