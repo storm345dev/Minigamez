@@ -63,12 +63,14 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JButton btnPlayerCount = new JButton("Player settings");
 	  private final JButton btnTeamSettings = new JButton("Team settings");
 	  private final JButton btnLocationSettings = new JButton("Locations");
+	  private final JButton btnObjectives = new JButton("Objectives");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
 	  private JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsPlayerSettings = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsObjectives = new JPanel(new GridLayout(0,2));
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JTextField teams = new JTextField(16);
@@ -78,6 +80,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsPane.add(btnPlayerCount);
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
+	    optionsPane.add(btnObjectives);
 	    setBounds(100,100,1000,600);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    Container con = this.getContentPane(); // inherit main frame
@@ -114,6 +117,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    Font title = new Font("Title", Font.BOLD, 36);
 	    btnPlayerCount.addActionListener(this);
 	    btnLocationSettings.addActionListener(this);
+	    btnObjectives.addActionListener(this);
 	  //start player options page
 	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
@@ -144,6 +148,11 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsLocationSettings.add(locations);
 	    //TODO
 	    //end locations settings page
+	    //start objectives settings page
+	    JLabel ObjectivesTitle = new JLabel("Objectives:");
+	    ObjectivesTitle.setFont(title);
+	    optionsObjectives.add(ObjectivesTitle); optionsObjectives.add(new JLabel(" "));
+	    //end objectives settings page
 	  }
 	  
 	  public void actionPerformed(ActionEvent event)
@@ -185,7 +194,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    	locations.draw();
 	      return;
 	    }
-	    
+	    if (source == btnObjectives)
+	    {
+	    	System.out.println("Option: Objectives");
+	    	setPanelComponent(optionSettingsPane, optionsObjectives);
+	      return;
+	    }
       }
 	  public void popUpMsg(String msg, String title){
 		  JOptionPane.showMessageDialog(null,msg,title,
