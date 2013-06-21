@@ -73,7 +73,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JTextField teams = new JTextField(16);
-	  private GameEventList test = new GameEventList(this);
+	  private Objective test = new Objective(this);
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 
@@ -152,7 +152,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    JLabel ObjectivesTitle = new JLabel("Objectives:");
 	    ObjectivesTitle.setFont(title);
 	    optionsObjectives.add(ObjectivesTitle); optionsObjectives.add(new JLabel(" "));
-	    test = new GameEventList(this);
+	    test = new Objective(this);
 	    optionsObjectives.add(test);
 	    
 	    //end objectives settings page
