@@ -68,12 +68,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
 	  private JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsPlayerSettings = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsObjectives = new JPanel(new GridLayout(0,2));
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JTextField teams = new JTextField(16);
+	  private GameEventList test = new GameEventList(this);
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 
@@ -152,6 +152,9 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    JLabel ObjectivesTitle = new JLabel("Objectives:");
 	    ObjectivesTitle.setFont(title);
 	    optionsObjectives.add(ObjectivesTitle); optionsObjectives.add(new JLabel(" "));
+	    test = new GameEventList(this);
+	    optionsObjectives.add(test);
+	    
 	    //end objectives settings page
 	  }
 	  
@@ -198,6 +201,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    {
 	    	System.out.println("Option: Objectives");
 	    	setPanelComponent(optionSettingsPane, optionsObjectives);
+	    	test.draw();
 	      return;
 	    }
       }
