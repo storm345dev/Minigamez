@@ -30,7 +30,8 @@ public class ObjectiveManager extends JPanel implements ActionListener {
 			//save it
 			String gameevent = newObjective.getEvent();
 			String action = newObjective.getAction();
-			HashMap<String, Object> vals = newObjective.getValues();
+			HashMap<String, Object> actionvals = newObjective.getActionValues();
+			HashMap<String, Object> eventvals = newObjective.getEventValues();
 			//TODO Save in readable format!
 			//reset objectives bar
 		    newObjective = new Objective(window, this);

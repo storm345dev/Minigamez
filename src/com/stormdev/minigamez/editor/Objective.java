@@ -38,11 +38,27 @@ public class Objective extends JPanel implements ActionListener{
     public String getAction(){
     	return (String)this.actions.getSelectedItem();
     }
-    public HashMap<String, Object> getValues(){
+    public HashMap<String, Object> getActionValues(){
 		HashMap<String, Object> vals = new HashMap<String, Object>();
 		Component[] comps = values.getComponents();
 		for(Component comp:comps){
-			if(comp.getName().contains("arg")){
+			if(comp.getName().toLowerCase().contains("actionarg")){
+				if(comp instanceof JTextField){
+					vals.put(comp.getName(), ((JTextField)comp).getText());
+					((JTextField) comp).setText("");
+				}
+				if(comp instanceof OptionList){
+					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
+				}
+			}
+		}
+		return vals;
+    }
+    public HashMap<String, Object> getEventValues(){
+		HashMap<String, Object> vals = new HashMap<String, Object>();
+		Component[] comps = values.getComponents();
+		for(Component comp:comps){
+			if(comp.getName().toLowerCase().contains("eventarg")){
 				if(comp instanceof JTextField){
 					vals.put(comp.getName(), ((JTextField)comp).getText());
 					((JTextField) comp).setText("");
@@ -63,12 +79,13 @@ public class Objective extends JPanel implements ActionListener{
     	//adjust values tab
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
-    		toSend.setName("arg0");
+    		toSend.setName("actionarg0");
     		OptionList to = new OptionList(window);
     		ArrayList<String> recipients = new ArrayList<String>();
     		recipients.add("player");
     		recipients.add("team");
     		to.setVals(recipients);
+    		to.setName("actionarg1");
     		to.draw();
     		values.add(toSend);
     		values.add(new JLabel("To:"));
