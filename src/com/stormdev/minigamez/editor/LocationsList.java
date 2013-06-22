@@ -12,13 +12,15 @@ public class LocationsList extends JComboBox {
 	private static final long serialVersionUID = -6570143230108119046L;
 	private WindowArea window = null;
 	private ArrayList<String> locations = new ArrayList<String>();
+	@SuppressWarnings("unchecked")
 	public LocationsList(WindowArea area){
 		this.window = area;
-		this.locations = window.locations.getLocations();
+		this.locations = (ArrayList<String>) window.locations.getLocations().clone();
 		draw();
 	}
+	@SuppressWarnings("unchecked")
 	public void updateLocs(){
-		this.locations = window.locations.getLocations();
+		this.locations = (ArrayList<String>) window.locations.getLocations().clone();
 	}
 	public void draw(){
 		updateLocs();

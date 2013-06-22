@@ -57,6 +57,9 @@ public class Objective extends JPanel implements ActionListener{
 				if(comp instanceof OptionList){
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
 				}
+				if(comp instanceof LocationsList){
+					vals.put(comp.getName(), ((LocationsList)comp).getSelectedItem());
+				}
 			}
 			}
 		}
@@ -89,6 +92,9 @@ public class Objective extends JPanel implements ActionListener{
 				}
 				if(comp instanceof OptionList){
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
+				}
+				if(comp instanceof LocationsList){
+					vals.put(comp.getName(), ((LocationsList)comp).getSelectedItem());
 				}
 			}
 			}
@@ -126,6 +132,18 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(toSend);
     		values.add(new JLabel("To:"));
     		values.add(to);
+    	}
+    	if(getAction().equalsIgnoreCase("broadcastMessage")){
+    		JTextField toSend = new JTextField(16);
+    		toSend.setName("actionarg0");
+    		values.add(new JLabel("Msg:"));
+    		values.add(toSend);
+    	}
+    	if(getAction().equalsIgnoreCase("teleportTo")){
+    		LocationsList loc = new LocationsList(this.window);
+    		loc.setName("actionarg0");
+    		values.add(new JLabel("Location:"));
+    		values.add(loc);
     	}
     	this.add(values);
     	this.add(this.save);
