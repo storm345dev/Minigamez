@@ -23,6 +23,7 @@ public class Objective extends JPanel implements ActionListener{
 	JButton save = new JButton("Save!");
 	JLabel when = new JLabel("When:");
 	JLabel DO = new JLabel("Do:");
+	ObjectiveManager manager = null;
     public Objective(WindowArea area, ObjectiveManager manager){
     	this.window = area;
     	event = new GameEventList(area);
@@ -31,7 +32,9 @@ public class Objective extends JPanel implements ActionListener{
     	actions.addActionListener(this);
     	event.draw();
     	actions.draw();
-    	save.addActionListener(manager);
+    	this.manager = manager;
+    	this.save = new JButton("Save!");
+    	this.save.addActionListener(this.manager);
     }
     public String getEvent(){
     	return (String)this.event.getSelectedItem();
@@ -43,6 +46,9 @@ public class Objective extends JPanel implements ActionListener{
 		HashMap<String, Object> vals = new HashMap<String, Object>();
 		Component[] comps = values.getComponents();
 		for(Component comp:comps){
+			if(comp.getName() == null || comp.getName().length() < 1){
+			}
+			else{
 			if(comp.getName().toLowerCase().contains("actionarg")){
 				if(comp instanceof JTextField){
 					vals.put(comp.getName(), ((JTextField)comp).getText());
@@ -52,6 +58,7 @@ public class Objective extends JPanel implements ActionListener{
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
 				}
 			}
+			}
 		}
 		return vals;
     }
@@ -59,6 +66,9 @@ public class Objective extends JPanel implements ActionListener{
 		HashMap<String, Object> vals = new HashMap<String, Object>();
 		Component[] comps = values.getComponents();
 		for(Component comp:comps){
+			if(comp.getName() == null || comp.getName().length() < 1){
+			}
+			else{
 			if(comp.getName().toLowerCase().contains("eventarg")){
 				if(comp instanceof JTextField){
 					if(comp.getName().toLowerCase().contains("t:int")){
@@ -66,7 +76,7 @@ public class Objective extends JPanel implements ActionListener{
 						try {
 							val = Integer.parseInt(((JTextField) comp).getText());
 						} catch (NumberFormatException e) {
-							window.popUpMsg("Field should contain an integer!", "ERROR");
+							this.window.popUpMsg("Field should contain an integer!", "ERROR");
 							return null;
 						}
 						vals.put(comp.getName(), val);
@@ -81,8 +91,12 @@ public class Objective extends JPanel implements ActionListener{
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
 				}
 			}
+			}
 		}
 		return vals;
+    }
+    public JButton getSaveButton(){
+    	return this.save;
     }
     public void draw(){
     	clearPanel(values);
@@ -114,7 +128,8 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(to);
     	}
     	this.add(values);
-    	this.add(save);
+    	this.add(this.save);
+    	this.save.addActionListener(this.manager);
     	window.refresh();
     }
     public void clearPanel(JPanel panel){
