@@ -32,6 +32,7 @@ import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import java.text.Format;
+import java.util.ArrayList;
 
 import javax.swing.JSplitPane;
 
@@ -157,7 +158,15 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    
 	    //end objectives settings page
 	  }
-	  
+	  public ArrayList<String> getTeams(){
+		  String teamsRaw = this.teams.getText();
+		    String[] teams = teamsRaw.split(",");
+		    ArrayList<String> toReturn = new ArrayList<String>();
+		    for(String team:teams){
+		    	toReturn.add(team);
+		    }
+		    return toReturn;
+	  }
 	  public void actionPerformed(ActionEvent event)
 	  {
 	    Object source = event.getSource();

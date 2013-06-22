@@ -16,12 +16,14 @@ public class GameEventList extends OptionList {
 		vals.add("gameEnd");
 		vals.add("gameExit");
 		vals.add("playerDie");
+		vals.add("playerHurt");
 		vals.add("onePlayerLeft");
 		vals.add("numPlayersLeft");
 		if(window.useTeams.isSelected()){
 		vals.add("oneTeamLeft");
 		}
 		vals.add("playerArriveAtLocation");
+		vals.add("teamMateArriveAtLocation");
 		vals.add("playerOutsideArenaBounds");
 		vals.add("playerOutOfLives");
 		vals.add("playerQuitGame");

@@ -14,6 +14,7 @@ public class ObjectiveActions extends OptionList {
 	public void calculate(){
 		vals.add("sendMessage");
 		vals.add("teleportTo");
+		vals.add("setRespawnLoc");
 		vals.add("broadcastMessage");
 		vals.add("endGame");
 		vals.add("heal");

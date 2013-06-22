@@ -120,9 +120,21 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getEvent().equalsIgnoreCase("playerArriveAtLocation")){
     		LocationsList loc = new LocationsList(this.window);
-    		loc.setName("actionarg0");
+    		loc.setName("eventarg0");
     		values.add(new JLabel("Location(arrived):"));
     		values.add(loc);
+    	}
+    	if(getEvent().equalsIgnoreCase("teamMateArriveAtLocation")){
+    		LocationsList loc = new LocationsList(this.window);
+    		loc.setName("eventarg0");
+    		OptionList team = new OptionList(this.window);
+    		team.setVals(this.window.getTeams());
+    		team.setName("eventarg1");
+    		team.draw();
+    		values.add(new JLabel("Location(arrived):"));
+    		values.add(loc);
+    		values.add(new JLabel("Team:"));
+    		values.add(team);
     	}
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
@@ -149,6 +161,12 @@ public class Objective extends JPanel implements ActionListener{
     		LocationsList loc = new LocationsList(this.window);
     		loc.setName("actionarg0");
     		values.add(new JLabel("Location(tp to):"));
+    		values.add(loc);
+    	}
+    	if(getAction().equalsIgnoreCase("setRespawnLoc")){
+    		LocationsList loc = new LocationsList(this.window);
+    		loc.setName("actionarg0");
+    		values.add(new JLabel("Location(respawn):"));
     		values.add(loc);
     	}
     	this.add(values);
