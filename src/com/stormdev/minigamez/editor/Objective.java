@@ -125,6 +125,9 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(loc);
     	}
     	if(getEvent().equalsIgnoreCase("teamMateArriveAtLocation")){
+    		if(!this.window.useTeams.isSelected()){
+    			this.window.popUpMsg("This event doesn't function with teams disabled!", "WARNING");
+    		}
     		LocationsList loc = new LocationsList(this.window);
     		loc.setName("eventarg0");
     		OptionList team = new OptionList(this.window);
