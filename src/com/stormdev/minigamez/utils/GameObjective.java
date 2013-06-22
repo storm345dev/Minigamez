@@ -1,11 +1,13 @@
 package com.stormdev.minigamez.utils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 
-public class GameObjective {
-	  public String gameEvent,gameAction = null;
+public class GameObjective implements Serializable {
+	private static final long serialVersionUID = -3855923751889621847L;
+	public String gameEvent,gameAction = null;
 	  HashMap<String,Object> eventVals,actionVals = new HashMap<String, Object>();
       public GameObjective(String gameEvent, String gameAction, HashMap<String, Object> eventVals, HashMap<String, Object> actionVals){
     	  this.gameEvent = gameEvent;

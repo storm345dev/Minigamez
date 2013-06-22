@@ -27,6 +27,9 @@ public class ObjectiveManager extends JPanel implements ActionListener {
     this.newObjective.draw();
     this.draw();
 	}
+	public ArrayList<GameObjective> getObjectives(){
+		return this.objectives;
+	}
 	public void draw(){
 		this.removeAll();
 		//add current objectives

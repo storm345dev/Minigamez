@@ -73,7 +73,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JTextField teams = new JTextField(16);
-	  private ObjectiveManager objectives = new ObjectiveManager(this);
+	  public ObjectiveManager objectives = new ObjectiveManager(this);
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 

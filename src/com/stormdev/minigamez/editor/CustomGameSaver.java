@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import com.stormdev.minigamez.main.minigamez;
 import com.stormdev.minigamez.utils.CustomGame;
+import com.stormdev.minigamez.utils.GameObjective;
 import com.stormdev.minigamez.utils.Option;
 import com.stormdev.minigamez.utils.OptionType;
 
@@ -91,6 +93,8 @@ public class CustomGameSaver {
 			System.out.println("Invalid teams... Aborted save");
 			return false;
 	    }
+	    ArrayList<String> locs = window.locations.getLocations();
+	    ArrayList<GameObjective> objectives = window.objectives.getObjectives();
 	    game.setOption("header.name", new Option(gname, OptionType.GAME));
 	    game.setOption("playerCount.min", new Option(minimum, OptionType.GAME));
 	    game.setOption("playerCount.max", new Option(maximum, OptionType.GAME));
@@ -102,6 +106,8 @@ public class CustomGameSaver {
 	    else{
 	    game.setOption("teams.teams", new Option(teams, OptionType.GAME));
 	    }
+	    game.setOption("settings.locs", new Option(locs, OptionType.GAME));
+	    game.setOption("header.objectives", new Option(objectives, OptionType.GAME));
 	    //TODO write to file
 	    String loc = new File("").getAbsolutePath();
 	    new File(loc + File.separator + "Minigamez" + File.separator + "myGames").mkdirs();
