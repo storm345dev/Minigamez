@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -60,8 +61,21 @@ public class Objective extends JPanel implements ActionListener{
 		for(Component comp:comps){
 			if(comp.getName().toLowerCase().contains("eventarg")){
 				if(comp instanceof JTextField){
+					if(comp.getName().toLowerCase().contains("t:int")){
+						int val = 1;
+						try {
+							val = Integer.parseInt(((JTextField) comp).getText());
+						} catch (NumberFormatException e) {
+							window.popUpMsg("Field should contain an integer!", "ERROR");
+							return null;
+						}
+						vals.put(comp.getName(), val);
+						((JTextField) comp).setText("");
+					}
+					else{
 					vals.put(comp.getName(), ((JTextField)comp).getText());
 					((JTextField) comp).setText("");
+					}
 				}
 				if(comp instanceof OptionList){
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
@@ -77,6 +91,13 @@ public class Objective extends JPanel implements ActionListener{
     	this.add(DO);
     	this.add(actions);
     	//adjust values tab
+    	if(getEvent().equalsIgnoreCase("numPlayersLeft")){
+    		JTextField pLeft = new JTextField(2);
+    		pLeft.setText("2");
+    		pLeft.setName("eventarg0t:int");
+    		values.add(new JLabel("Left:"));
+    		values.add(pLeft);
+    	}
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
     		toSend.setName("actionarg0");
@@ -87,6 +108,7 @@ public class Objective extends JPanel implements ActionListener{
     		to.setVals(recipients);
     		to.setName("actionarg1");
     		to.draw();
+    		values.add(new JLabel("Msg:"));
     		values.add(toSend);
     		values.add(new JLabel("To:"));
     		values.add(to);

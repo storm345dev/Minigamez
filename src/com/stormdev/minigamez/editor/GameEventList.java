@@ -17,7 +17,7 @@ public class GameEventList extends OptionList {
 		vals.add("gameExit");
 		vals.add("playerDie");
 		vals.add("onePlayerLeft");
-		vals.add("NumPlayersLeft");
+		vals.add("numPlayersLeft");
 		if(window.useTeams.isSelected()){
 		vals.add("oneTeamLeft");
 		}
