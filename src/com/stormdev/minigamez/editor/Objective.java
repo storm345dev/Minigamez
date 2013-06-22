@@ -118,6 +118,12 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(new JLabel("Left:"));
     		values.add(pLeft);
     	}
+    	if(getEvent().equalsIgnoreCase("playerArriveAtLocation")){
+    		LocationsList loc = new LocationsList(this.window);
+    		loc.setName("actionarg0");
+    		values.add(new JLabel("Location(arrived):"));
+    		values.add(loc);
+    	}
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
     		toSend.setName("actionarg0");
@@ -142,7 +148,7 @@ public class Objective extends JPanel implements ActionListener{
     	if(getAction().equalsIgnoreCase("teleportTo")){
     		LocationsList loc = new LocationsList(this.window);
     		loc.setName("actionarg0");
-    		values.add(new JLabel("Location:"));
+    		values.add(new JLabel("Location(tp to):"));
     		values.add(loc);
     	}
     	this.add(values);
