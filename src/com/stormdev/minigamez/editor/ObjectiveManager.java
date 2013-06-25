@@ -35,7 +35,7 @@ public class ObjectiveManager extends JPanel implements ActionListener {
 		//add current objectives
 		final ArrayList<GameObjective> objs = objectives;
 		for(GameObjective obj:objs){
-			JPanel current = new JPanel(new FlowLayout());
+			JPanel current = new JPanel(new FlowLayout(FlowLayout.LEADING));
 			String toWrite = "When:["+obj.getEvent() + "]Do:["+obj.getActon()+"]Options:[";
 			HashMap<String, Object> eventVals = obj.getEventVals();
 			for(String key:eventVals.keySet()){
