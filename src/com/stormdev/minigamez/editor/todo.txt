@@ -1,5 +1,4 @@
 TODOS:
-*Add a rules page for GameRuleList.
 *Add a score system and incrementScore action.
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
