@@ -23,6 +23,7 @@ public class ObjectiveActions extends OptionList {
 		vals.add("chance");
 		vals.add("fireEvent");
 		vals.add("spawnMob");
+		vals.add("broadcastScores");
 		this.setVals(vals);
 	}
 
