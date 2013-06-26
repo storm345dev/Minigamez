@@ -33,7 +33,7 @@ public class ObjectiveManager extends JPanel implements ActionListener {
 	public void draw(){
 		this.removeAll();
 		//add current objectives
-		final ArrayList<GameObjective> objs = objectives;
+		final ArrayList<GameObjective> objs = this.objectives;
 		for(GameObjective obj:objs){
 			JPanel current = new JPanel(new FlowLayout(FlowLayout.LEADING));
 			String toWrite = "When:["+obj.getEvent() + "]Do:["+obj.getActon()+"]Options:[";
@@ -89,6 +89,7 @@ public class ObjectiveManager extends JPanel implements ActionListener {
 		}
 		//create new objectives
 		this.add(this.newObjective);
+		this.newObjective.draw();
 		this.window.refresh();
 	}
 	@Override

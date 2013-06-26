@@ -5,12 +5,14 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
@@ -19,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -66,6 +69,8 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JButton btnLocationSettings = new JButton("Locations");
 	  private final JButton btnObjectives = new JButton("Objectives");
 	  private final JButton btnRules = new JButton("Game Rules");
+	  private final JButton btnPoints = new JButton("Points");
+	  private final JButton btnCustomEvents = new JButton("Custom Events");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
@@ -73,19 +78,28 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsObjectives = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsRules = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsPoints = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsCustomEvents = new JPanel(new GridLayout(0,2));
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
+	  JCheckBox usePoints = new JCheckBox("Use Points", true);
+	  JCheckBox allowNegativePoints = new JCheckBox("Allow negative points", true);
+	  JRadioButton playerPoints = new JRadioButton("Per player", true);
+	  JRadioButton teamPoints = new JRadioButton("Per team", false);
 	  JTextField teams = new JTextField(16);
 	  RuleManager rules = null;
 	  public ObjectiveManager objectives = new ObjectiveManager(this);
+	  public CustomEvents customEvents = null;
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Creator"); 
 	    optionsPane.add(btnPlayerCount);
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
+	    optionsPane.add(btnCustomEvents);
 	    optionsPane.add(btnObjectives);
 	    optionsPane.add(btnRules);
+	    optionsPane.add(btnPoints);
 	    setBounds(100,100,1000,600);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    Container con = this.getContentPane(); // inherit main frame
@@ -124,6 +138,8 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    btnLocationSettings.addActionListener(this);
 	    btnObjectives.addActionListener(this);
 	    btnRules.addActionListener(this);
+	    btnPoints.addActionListener(this);
+	    btnCustomEvents.addActionListener(this);
 	  //start player options page
 	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
@@ -170,6 +186,25 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsRules.add(this.rules);
 	    this.rules.draw();
 	    //end rules settings page
+	  //start pts settings page
+	    JLabel ptsTitle = new JLabel("Points:");
+	    ptsTitle.setFont(title);
+        optionsPoints.add(ptsTitle); optionsPoints.add(new JLabel(" "));
+        optionsPoints.add(usePoints); optionsPoints.add(allowNegativePoints);
+        ButtonGroup scoreByWho = new ButtonGroup();
+        scoreByWho.add(playerPoints); scoreByWho.add(teamPoints);
+        JPanel radioSel = new JPanel(new FlowLayout());
+        radioSel.add(playerPoints);
+        radioSel.add(teamPoints);
+        optionsPoints.add(new JLabel("Calculate scores:"));optionsPoints.add(radioSel);
+	    //end pts settings page
+      //start evt settings page
+	    JLabel evtTitle = new JLabel("Custom Events:");
+	    evtTitle.setFont(title);
+	    this.customEvents = new CustomEvents(this);
+        optionsCustomEvents.add(evtTitle); optionsCustomEvents.add(new JLabel(" "));
+        optionsCustomEvents.add(this.customEvents);
+	    //end evt settings page
 	  }
 	  public ArrayList<String> getTeams(){
 		  String teamsRaw = this.teams.getText();
@@ -230,6 +265,18 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    {
 	    	System.out.println("Option: Game Rules");
 	    	setPanelComponent(optionSettingsPane, optionsRules);
+	      return;
+	    }
+	    if (source == btnPoints)
+	    {
+	    	System.out.println("Option: Game Points");
+	    	setPanelComponent(optionSettingsPane, optionsPoints);
+	      return;
+	    }
+	    if (source == btnCustomEvents)
+	    {
+	    	System.out.println("Option: Game Custom Events");
+	    	setPanelComponent(optionSettingsPane, optionsCustomEvents);
 	      return;
 	    }
       }

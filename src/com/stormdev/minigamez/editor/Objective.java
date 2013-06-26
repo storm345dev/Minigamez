@@ -51,8 +51,21 @@ public class Objective extends JPanel implements ActionListener{
 			else{
 			if(comp.getName().toLowerCase().contains("actionarg")){
 				if(comp instanceof JTextField){
+					if(comp.getName().toLowerCase().contains("t:int")){
+						int val = 1;
+						try {
+							val = Integer.parseInt(((JTextField) comp).getText());
+						} catch (NumberFormatException e) {
+							this.window.popUpMsg("Field should contain an integer!", "ERROR");
+							return null;
+						}
+						vals.put(comp.getName(), val);
+						((JTextField) comp).setText("");
+					}
+					else{
 					vals.put(comp.getName(), ((JTextField)comp).getText());
 					((JTextField) comp).setText("");
+					}
 				}
 				if(comp instanceof OptionList){
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
@@ -107,6 +120,8 @@ public class Objective extends JPanel implements ActionListener{
     public void draw(){
     	clearPanel(values);
     	this.add(when);
+    	this.event.calculate();
+    	this.event.draw();
     	this.add(event);
     	this.add(DO);
     	this.add(actions);
@@ -123,6 +138,12 @@ public class Objective extends JPanel implements ActionListener{
     		loc.setName("eventarg0");
     		values.add(new JLabel("Location(arrived):"));
     		values.add(loc);
+    	}
+    	if(getEvent().equalsIgnoreCase("reachXPoints")){
+    		JTextField pts = new JTextField(3);
+    		pts.setName("eventarg0t:int");
+    		values.add(new JLabel("Pts reached:"));
+    		values.add(pts);
     	}
     	if(getEvent().equalsIgnoreCase("teamMateArriveAtLocation")){
     		if(!this.window.useTeams.isSelected()){
@@ -159,6 +180,24 @@ public class Objective extends JPanel implements ActionListener{
     		toSend.setName("actionarg0");
     		values.add(new JLabel("Msg:"));
     		values.add(toSend);
+    	}
+    	if(getAction().equalsIgnoreCase("incrementPoints")){
+    		JTextField pts = new JTextField(3);
+    		OptionList who = new OptionList(this.window);
+    		ArrayList<String> vals = new ArrayList<String>();
+    		vals.add("invloved");
+    		vals.add("opposition");
+    		vals.add("team");
+    		vals.add("rivalTeam");
+    		who.setVals(vals);
+    		who.draw();
+    		pts.setText("1");
+    		pts.setName("actionarg0t:int");
+    		who.setName("actionarg1");
+    		values.add(new JLabel("Pts to increment:"));
+    		values.add(pts);
+    		values.add(new JLabel("Who to increment:"));
+    		values.add(who);
     	}
     	if(getAction().equalsIgnoreCase("teleportTo")){
     		LocationsList loc = new LocationsList(this.window);

@@ -16,6 +16,7 @@ public class ObjectiveActions extends OptionList {
 		vals.add("teleportTo");
 		vals.add("setRespawnLoc");
 		vals.add("broadcastMessage");
+		vals.add("incrementPoints");
 		vals.add("endGame");
 		vals.add("heal");
 		vals.add("kill");

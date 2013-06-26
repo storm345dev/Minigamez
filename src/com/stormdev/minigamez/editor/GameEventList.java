@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GameEventList extends OptionList {
 	private static final long serialVersionUID = 1090516548573439068L;
 	public ArrayList<String> vals = new ArrayList<String>();
+	public ArrayList<String> official = new ArrayList<String>();
 	private WindowArea window = null;
 	public GameEventList(WindowArea area){
 		super(area);
@@ -28,7 +29,20 @@ public class GameEventList extends OptionList {
 		vals.add("playerOutOfLives");
 		vals.add("playerQuitGame");
 		vals.add("playerRespawn");
+		vals.add("reachXPoints");
+		for(String s:vals){
+			this.official.add(s);
+		}
+		//load custom
+		try {
+			vals.addAll(this.window.customEvents.getEvts());
+		} catch (Exception e) {
+			//list is empty/not loaded yet
+		}
 		this.setVals(vals);
+	}
+	public ArrayList<String> getOfficial(){
+		return this.official;
 	}
 
 }
