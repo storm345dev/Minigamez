@@ -20,6 +20,8 @@ public class ObjectiveActions extends OptionList {
 		vals.add("endGame");
 		vals.add("heal");
 		vals.add("kill");
+		vals.add("chance");
+		vals.add("fireEvent");
 		this.setVals(vals);
 	}
 

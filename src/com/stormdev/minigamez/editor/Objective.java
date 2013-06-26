@@ -62,12 +62,42 @@ public class Objective extends JPanel implements ActionListener{
 						vals.put(comp.getName(), val);
 						((JTextField) comp).setText("");
 					}
+					else if(comp.getName().toLowerCase().contains("t:num")){
+						double val = 1;
+						try {
+							val = Double.parseDouble(((JTextField) comp).getText());
+						} catch (NumberFormatException e) {
+							this.window.popUpMsg("Field should contain a number!", "ERROR");
+							return null;
+						}
+						vals.put(comp.getName(), val);
+						((JTextField) comp).setText("");
+					}
+					else if(comp.getName().toLowerCase().contains("t:chance")){
+						double val = 1;
+						try {
+							val = Double.parseDouble(((JTextField) comp).getText());
+						} catch (NumberFormatException e) {
+							this.window.popUpMsg("Field should contain a number!", "ERROR");
+							return null;
+						}
+						if(val > 100 || val <= 0){
+							this.window.popUpMsg("Field should contain a number between 0.1 and 100!", "ERROR");
+							return null;
+						}
+						vals.put(comp.getName(), val);
+						((JTextField) comp).setText("");
+					}
 					else{
 					vals.put(comp.getName(), ((JTextField)comp).getText());
 					((JTextField) comp).setText("");
 					}
 				}
 				if(comp instanceof OptionList){
+					if(((String)((OptionList) comp).getSelectedItem()) == null || ((String)((OptionList) comp).getSelectedItem()).length() < 1){
+						this.window.popUpMsg("Option field cannot be empty!", "ERROR");
+						return null;
+					}
 					vals.put(comp.getName(), ((OptionList)comp).getSelectedItem());
 				}
 				if(comp instanceof LocationsList){
@@ -204,6 +234,26 @@ public class Objective extends JPanel implements ActionListener{
     		loc.setName("actionarg0");
     		values.add(new JLabel("Location(tp to):"));
     		values.add(loc);
+    	}
+    	if(getAction().equalsIgnoreCase("fireEvent")){
+    		GameEventList list = new GameEventList(this.window);
+    		list.draw();
+    		list.setName("actionarg0");
+    		values.add(new JLabel("Event to fire:"));
+    		values.add(list);
+    	}
+    	if(getAction().equalsIgnoreCase("chance")){
+    		JTextField chance = new JTextField(3);
+    		chance.setName("actionarg0t:chance");
+    		ArrayList<String> cEvnts = window.customEvents.getEvts();
+    		OptionList list = new OptionList(this.window);
+    		list.setVals(cEvnts);
+    		list.draw();
+    		list.setName("actionarg1");
+    		values.add(new JLabel("Chance (/100):"));
+    		values.add(chance);
+    		values.add(new JLabel("Action (custom event):"));
+    		values.add(list);
     	}
     	if(getAction().equalsIgnoreCase("setRespawnLoc")){
     		LocationsList loc = new LocationsList(this.window);

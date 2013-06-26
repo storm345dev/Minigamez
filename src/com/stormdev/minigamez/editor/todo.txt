@@ -1,5 +1,4 @@
 TODOS:
-*Custom events and a fireEvent action
 *spawnMob action
 *Chance actions, logic
 *Add lives, items and lots more options and stuff like that.
