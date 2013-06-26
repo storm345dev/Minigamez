@@ -20,6 +20,8 @@ public class GameRuleList extends OptionList {
 		this.defaults.put("differentInventoryDuringMinigame", true);
 		this.vals.put("allowCommands", "bool");
 		this.defaults.put("allowCommands", false);
+		this.vals.put("separateGameChat", "bool");
+		this.defaults.put("separateGameChat", true);
 		ArrayList<String> rules = new ArrayList<String>();
 		rules.addAll(this.vals.keySet());
 		this.setVals(rules);
