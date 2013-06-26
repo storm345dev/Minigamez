@@ -266,7 +266,9 @@ public class Objective extends JPanel implements ActionListener{
     		JTextField chance = new JTextField(3);
     		chance.setName("actionarg0t:chance");
     		ArrayList<String> cEvnts = window.customEvents.getEvts();
+    		if(!cEvnts.contains("Nothing")){
     		cEvnts.add("Nothing");
+    		}
     		OptionList list = new OptionList(this.window);
     		list.setVals(cEvnts);
     		list.draw();

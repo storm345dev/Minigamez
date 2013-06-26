@@ -127,6 +127,8 @@ public class CustomEvents extends JPanel implements ActionListener {
 			setEvt(toAdd);
 			newEvtName.setText("");
 			draw();
+			this.window.objectives.newObjective.event.calculate();
+			this.window.objectives.newObjective.event.draw();
 			return;
 		}
 	}
