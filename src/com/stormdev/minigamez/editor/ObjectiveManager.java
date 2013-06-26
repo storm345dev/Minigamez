@@ -117,7 +117,8 @@ public class ObjectiveManager extends JPanel implements ActionListener {
 			//clear it
 			this.remove(this.newObjective);
 		    this.newObjective = new Objective(this.window, this);
-		    this.newObjective.draw();
+		    this.newObjective.onLoad();
+		    //this.newObjective.draw();
 		    this.draw();
 		    this.window.refresh();
 		}

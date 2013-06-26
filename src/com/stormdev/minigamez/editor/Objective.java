@@ -147,11 +147,14 @@ public class Objective extends JPanel implements ActionListener{
     public JButton getSaveButton(){
     	return this.save;
     }
+    public void onLoad(){
+    	this.event.calculate();
+    	this.event.draw();
+    	return;
+    }
     public void draw(){
     	clearPanel(values);
     	this.add(when);
-    	this.event.calculate();
-    	this.event.draw();
     	this.add(event);
     	this.add(DO);
     	this.add(actions);
@@ -263,14 +266,24 @@ public class Objective extends JPanel implements ActionListener{
     		JTextField chance = new JTextField(3);
     		chance.setName("actionarg0t:chance");
     		ArrayList<String> cEvnts = window.customEvents.getEvts();
+    		cEvnts.add("Nothing");
     		OptionList list = new OptionList(this.window);
     		list.setVals(cEvnts);
     		list.draw();
     		list.setName("actionarg1");
+    		OptionList rlist = new OptionList(this.window);
+    		@SuppressWarnings("unchecked")
+			ArrayList<String> reserveEvts = (ArrayList<String>) cEvnts.clone();
+    		rlist.setVals(reserveEvts);
+    		rlist.draw();
+    		rlist.setSelectedItem("Nothing");
+    		rlist.setName("actionarg2");
     		values.add(new JLabel("Chance (/100):"));
     		values.add(chance);
-    		values.add(new JLabel("Action (custom event):"));
+    		values.add(new JLabel("Action if chance succeed(custom event):"));
     		values.add(list);
+    		values.add(new JLabel("Action if chance failed (custom event):"));
+    		values.add(rlist);
     	}
     	if(getAction().equalsIgnoreCase("setRespawnLoc")){
     		LocationsList loc = new LocationsList(this.window);
