@@ -1,6 +1,6 @@
 TODOS:
 *spawnMob action
-*Chance actions, logic
+*Regular event calling/scheduler eg. every 50s do this...
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
 *Proper syntax for actionMessgaes like %player%, %winners% or %team%?

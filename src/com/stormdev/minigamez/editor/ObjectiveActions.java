@@ -22,6 +22,7 @@ public class ObjectiveActions extends OptionList {
 		vals.add("kill");
 		vals.add("chance");
 		vals.add("fireEvent");
+		vals.add("spawnMob");
 		this.setVals(vals);
 	}
 

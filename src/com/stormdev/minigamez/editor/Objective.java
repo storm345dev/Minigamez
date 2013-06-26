@@ -235,6 +235,23 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(new JLabel("Location(tp to):"));
     		values.add(loc);
     	}
+    	if(getAction().equalsIgnoreCase("spawnMob")){
+    		LocationsList loc = new LocationsList(this.window);
+    		OptionList mob = new OptionList(this.window);
+    		mob.setVals(Mobs.getMobs());
+    		mob.draw();
+    		JTextField amount = new JTextField(3);
+    		amount.setText("1");
+    		loc.setName("actionarg0");
+    		mob.setName("actionarg1");
+    		amount.setName("actionarg2t:int");
+    		values.add(new JLabel("Location(Spawn at):"));
+    		values.add(loc);
+    		values.add(new JLabel("Mob(To spawn):"));
+    		values.add(mob);
+    		values.add(new JLabel("Amount(To spawn):"));
+    		values.add(amount);
+    	}
     	if(getAction().equalsIgnoreCase("fireEvent")){
     		GameEventList list = new GameEventList(this.window);
     		list.draw();
