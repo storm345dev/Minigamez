@@ -1,5 +1,5 @@
 TODOS:
-*Add option "who" for teleportTo
+*Add option to set and get metadata to track players
 *Regular event calling/scheduler eg. every 50s do this...
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
