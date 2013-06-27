@@ -234,9 +234,15 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("teleportTo")){
     		LocationsList loc = new LocationsList(this.window);
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
     		loc.setName("actionarg0");
+    		who.setName("actionarg1");
     		values.add(new JLabel("Location(tp to):"));
     		values.add(loc);
+    		values.add(new JLabel("Who(To tp):"));
+    		values.add(who);
     	}
     	if(getAction().equalsIgnoreCase("spawnMob")){
     		LocationsList loc = new LocationsList(this.window);
