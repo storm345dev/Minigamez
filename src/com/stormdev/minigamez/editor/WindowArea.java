@@ -92,7 +92,8 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  public CustomEvents customEvents = null;
 	  WindowArea() // the frame constructor method
 	  {
-	    super("Minigame Creator"); 
+	    super("Minigame Editor"); 
+	    this.setIconImage(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/1.png")).getImage());
 	    optionsPane.add(btnPlayerCount);
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
