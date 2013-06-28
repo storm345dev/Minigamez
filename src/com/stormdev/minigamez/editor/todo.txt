@@ -3,3 +3,4 @@ TODOS:
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
 *Proper syntax for actionMessgaes like %player%, %winners% or %team%?
+*Finish save function and add load function

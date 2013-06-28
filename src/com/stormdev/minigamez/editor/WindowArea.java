@@ -39,6 +39,8 @@ import java.util.ArrayList;
 
 import javax.swing.JSplitPane;
 
+import com.stormdev.minigamez.utils.GameScheduler;
+
 public class WindowArea extends JFrame implements ActionListener,ChangeListener {
 	JPanel pane = new JPanel();
 	JPanel optionsPane = new JPanel(new GridLayout(0,1));
@@ -71,6 +73,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JButton btnRules = new JButton("Game Rules");
 	  private final JButton btnPoints = new JButton("Points");
 	  private final JButton btnCustomEvents = new JButton("Custom Events");
+	  private final JButton btnScheduler = new JButton("Scheduler");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
@@ -80,6 +83,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private JPanel optionsRules = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsPoints = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsCustomEvents = new JPanel(new GridLayout(0,2));
+	  private JPanel optionsScheduler = new JPanel(new GridLayout(0,2));
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JCheckBox usePoints = new JCheckBox("Use Points", true);
@@ -90,6 +94,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  RuleManager rules = null;
 	  public ObjectiveManager objectives = new ObjectiveManager(this);
 	  public CustomEvents customEvents = null;
+	  public EventScheduler scheduler = null;
 	  WindowArea() // the frame constructor method
 	  {
 	    super("Minigame Editor"); 
@@ -99,6 +104,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsPane.add(btnLocationSettings);
 	    optionsPane.add(btnCustomEvents);
 	    optionsPane.add(btnObjectives);
+	    optionsPane.add(btnScheduler);
 	    optionsPane.add(btnRules);
 	    optionsPane.add(btnPoints);
 	    setBounds(100,100,1000,600);
@@ -141,6 +147,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    btnRules.addActionListener(this);
 	    btnPoints.addActionListener(this);
 	    btnCustomEvents.addActionListener(this);
+	    btnScheduler.addActionListener(this);
 	  //start player options page
 	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
@@ -169,7 +176,6 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    locationOptionsTitle.setFont(title);
 	    optionsLocationSettings.add(locationOptionsTitle); optionsLocationSettings.add(spacer3);
 	    optionsLocationSettings.add(locations);
-	    //TODO
 	    //end locations settings page
 	    //start objectives settings page
 	    JLabel ObjectivesTitle = new JLabel("Objectives:");
@@ -206,6 +212,14 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
         optionsCustomEvents.add(evtTitle); optionsCustomEvents.add(new JLabel(" "));
         optionsCustomEvents.add(this.customEvents);
 	    //end evt settings page
+      //start sch settings page
+	    JLabel schTitle = new JLabel("Game Scheduler:");
+	    schTitle.setFont(title);
+        optionsScheduler.add(schTitle); optionsScheduler.add(new JLabel(" "));
+        this.scheduler = new EventScheduler();
+        this.scheduler.draw(this);
+        optionsScheduler.add(this.scheduler);
+	    //end sch settings page
 	  }
 	  public ArrayList<String> getTeams(){
 		  String teamsRaw = this.teams.getText();
@@ -278,6 +292,13 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    {
 	    	System.out.println("Option: Game Custom Events");
 	    	setPanelComponent(optionSettingsPane, optionsCustomEvents);
+	      return;
+	    }
+	    if (source == btnScheduler)
+	    {
+	    	System.out.println("Option: Game scheduler");
+	    	this.scheduler.draw(this);
+	    	setPanelComponent(optionSettingsPane, optionsScheduler);
 	      return;
 	    }
       }
