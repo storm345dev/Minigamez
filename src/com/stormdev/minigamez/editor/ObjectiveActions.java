@@ -24,6 +24,9 @@ public class ObjectiveActions extends OptionList {
 		vals.add("fireEvent");
 		vals.add("spawnMob");
 		vals.add("broadcastScores");
+		vals.add("setMetadata");
+		vals.add("removeMetadata");
+		vals.add("ifHasMetadata");
 		this.setVals(vals);
 	}
 

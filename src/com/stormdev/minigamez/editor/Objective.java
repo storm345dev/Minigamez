@@ -196,17 +196,30 @@ public class Objective extends JPanel implements ActionListener{
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
     		toSend.setName("actionarg0");
-    		OptionList to = new OptionList(window);
-    		ArrayList<String> recipients = new ArrayList<String>();
-    		recipients.add("player");
-    		recipients.add("team");
-    		to.setVals(recipients);
-    		to.setName("actionarg1");
+    		WhoList to = new WhoList(this.window);
+    		to.update();
     		to.draw();
+    		to.setName("actionarg1");
     		values.add(new JLabel("Msg:"));
     		values.add(toSend);
     		values.add(new JLabel("To:"));
     		values.add(to);
+    	}
+    	if(getAction().equalsIgnoreCase("heal")){
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg0");
+    		values.add(new JLabel("Who(To heal)"));
+    		values.add(who);
+    	}
+    	if(getAction().equalsIgnoreCase("kill")){
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg0");
+    		values.add(new JLabel("Who(To kill)"));
+    		values.add(who);
     	}
     	if(getAction().equalsIgnoreCase("broadcastMessage")){
     		JTextField toSend = new JTextField(16);
@@ -243,6 +256,60 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(loc);
     		values.add(new JLabel("Who(To tp):"));
     		values.add(who);
+    	}
+    	if(getAction().equalsIgnoreCase("setMetadata")){
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg0");
+    		JTextField meta = new JTextField(16);
+    		meta.setName("actionarg1");
+    		values.add(new JLabel("Who(To set metadata):"));
+    		values.add(who);
+    		values.add(new JLabel("MetaData(To set):"));
+    		values.add(meta);
+    	}
+    	if(getAction().equalsIgnoreCase("removeMetadata")){
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg0");
+    		JTextField meta = new JTextField(16);
+    		meta.setName("actionarg1");
+    		values.add(new JLabel("Who(To set metadata):"));
+    		values.add(who);
+    		values.add(new JLabel("MetaData(To Remove):"));
+    		values.add(meta);
+    	}
+    	if(getAction().equalsIgnoreCase("ifHasMetadata")){
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg0");
+    		JTextField meta = new JTextField(16);
+    		meta.setName("actionarg1");
+    		ArrayList<String> cEvnts = window.customEvents.getEvts();
+    		if(!cEvnts.contains("Nothing")){
+    		cEvnts.add("Nothing");
+    		}
+    		OptionList list = new OptionList(this.window);
+    		list.setVals(cEvnts);
+    		list.draw();
+    		list.setName("actionarg2");
+    		list.setSelectedItem("Nothing");
+    		OptionList rList = new OptionList(this.window);
+    		rList.setVals(cEvnts);
+    		rList.draw();
+    		list.setName("actionarg3");
+    		list.setSelectedItem("Nothing");
+    		values.add(new JLabel("Who(Has metadata):"));
+    		values.add(who);
+    		values.add(new JLabel("MetaData(To check):"));
+    		values.add(meta);
+    		values.add(new JLabel("Action(If they have):"));
+    		values.add(list);
+    		values.add(new JLabel("MetaData(If they don't have):"));
+    		values.add(rList);
     	}
     	if(getAction().equalsIgnoreCase("spawnMob")){
     		LocationsList loc = new LocationsList(this.window);
@@ -295,9 +362,15 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("setRespawnLoc")){
     		LocationsList loc = new LocationsList(this.window);
+    		WhoList who = new WhoList(this.window);
+    		who.update();
+    		who.draw();
+    		who.setName("actionarg1");
     		loc.setName("actionarg0");
     		values.add(new JLabel("Location(respawn):"));
     		values.add(loc);
+    		values.add(new JLabel("Who(To set respawn):"));
+    		values.add(who);
     	}
     	this.add(values);
     	this.add(this.save);
