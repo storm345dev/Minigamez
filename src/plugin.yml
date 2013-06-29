@@ -1,6 +1,6 @@
 name: Minigamez
 main: com.stormdev.minigamez.main.minigamez
-version: 1
+version: 1.0
 softdepend: [uCars]
 commands:
    demo:

@@ -16,6 +16,11 @@ public class CustomGameCreator {
 		window.setIconImage(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/1.png")).getImage());
 		System.out.println("Window open!");
 		System.out.println("Loaded!");
+		VersionRetriever verRet = new VersionRetriever(window);
+		double ver = verRet.getVersion();
+		System.out.println("Current version: "+ver);
+		double newestVer = verRet.getLatestVersion();
+		System.out.println("Latest Version: "+newestVer);
         return;
 	}
 

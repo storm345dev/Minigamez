@@ -1,4 +1,8 @@
 TODOS:
+*Add autoupdater
+*Kill mob event, countdown, wait
+*Add option to spawn more entites, not just mobs.
+*Add action for potionEffects, soundEffects, etc...
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
 *Proper syntax for actionMessgaes like %player%, %winners% or %team%?
