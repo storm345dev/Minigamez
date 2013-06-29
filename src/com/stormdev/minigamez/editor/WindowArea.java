@@ -304,8 +304,19 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
       }
 	  public void popUpMsg(String msg, String title){
 		  JOptionPane.showMessageDialog(null,msg,title,
-			      JOptionPane.PLAIN_MESSAGE); setVisible(true);  // show something
+				  JOptionPane.WARNING_MESSAGE); setVisible(true);  // show something
 	      return;
+	  }
+	  public Boolean prompt(String message, String title){
+		  int n = JOptionPane.showConfirmDialog(
+				    this,
+				    message,
+				    title,
+				    JOptionPane.YES_NO_OPTION);
+		  if(n > 0){
+			  return false;
+		  }
+		  return true;
 	  }
 	  public void setPanelComponent(JPanel pane, Component replacement){
 		  Component[] comps = pane.getComponents().clone();

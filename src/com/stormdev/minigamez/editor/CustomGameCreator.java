@@ -17,10 +17,7 @@ public class CustomGameCreator {
 		System.out.println("Window open!");
 		System.out.println("Loaded!");
 		VersionRetriever verRet = new VersionRetriever(window);
-		double ver = verRet.getVersion();
-		System.out.println("Current version: "+ver);
-		double newestVer = verRet.getLatestVersion();
-		System.out.println("Latest Version: "+newestVer);
+		verRet.checkForUpdate();
         return;
 	}
 
