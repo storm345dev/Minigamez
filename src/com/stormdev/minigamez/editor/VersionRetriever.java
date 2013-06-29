@@ -136,7 +136,7 @@ public class VersionRetriever {
 			     fos.write(responseUp);
 			     fos.close();
 			     System.out.println("Updated!");
-			     JOptionPane.showMessageDialog(null,"Updated successfully!","Updater",
+			     JOptionPane.showMessageDialog(null,"Updated successfully!\nPlease reopen minigamez!","Updater",
 						  JOptionPane.WARNING_MESSAGE);
 			     System.exit(1);
 					return;
