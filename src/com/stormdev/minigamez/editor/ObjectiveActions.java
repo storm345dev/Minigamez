@@ -22,7 +22,7 @@ public class ObjectiveActions extends OptionList {
 		vals.add("kill");
 		vals.add("chance");
 		vals.add("fireEvent");
-		vals.add("spawnMob");
+		vals.add("spawnEntity");
 		vals.add("broadcastScores");
 		vals.add("setMetadata");
 		vals.add("removeMetadata");

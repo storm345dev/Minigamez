@@ -8,6 +8,7 @@ public class Mobs {
 		ArrayList<String> toReturn = new ArrayList<String>();
 		toReturn.add("Bat");
 		toReturn.add("Blaze");
+		toReturn.add("Boat");
 		toReturn.add("CaveSpider");
 		toReturn.add("Chicken");
 		toReturn.add("Cow");
@@ -19,9 +20,11 @@ public class Mobs {
 		toReturn.add("Horse");
 		toReturn.add("IronGolem");
 		toReturn.add("MagmaCube");
+		toReturn.add("Minecart");
 		toReturn.add("Mooshroom");
 		toReturn.add("Ocelot");
 		toReturn.add("Pig");
+		toReturn.add("PrimedTnt");
 		toReturn.add("Sheep");
 		toReturn.add("Silverfish");
 		toReturn.add("Skeleton");

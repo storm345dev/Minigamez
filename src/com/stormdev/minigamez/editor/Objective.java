@@ -311,7 +311,7 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(new JLabel("MetaData(If they don't have):"));
     		values.add(rList);
     	}
-    	if(getAction().equalsIgnoreCase("spawnMob")){
+    	if(getAction().equalsIgnoreCase("spawnEntity")){
     		LocationsList loc = new LocationsList(this.window);
     		OptionList mob = new OptionList(this.window);
     		mob.setVals(Mobs.getMobs());

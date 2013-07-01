@@ -1,6 +1,10 @@
 TODOS:
 *Kill mob event, countdown, wait
 *Add option to spawn more entites, not just mobs: such as minecarts.
+*Add option to spawn falling blox
+*Add option to spawn projectiles
+*R-Click event
+*Left click event
 *Add action for potionEffects, soundEffects, etc...
 *Add lives, items and lots more options and stuff like that.
 *Add more events and actions.
