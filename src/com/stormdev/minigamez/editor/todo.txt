@@ -1,5 +1,4 @@
 TODOS:
-*Add autoupdater
 *Kill mob event, countdown, wait
 *Add option to spawn more entites, not just mobs.
 *Add action for potionEffects, soundEffects, etc...
