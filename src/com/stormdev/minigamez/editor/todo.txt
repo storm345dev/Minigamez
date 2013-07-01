@@ -3,6 +3,7 @@ TODOS:
 *Add option to spawn more entites, not just mobs: such as minecarts.
 *Add option to spawn falling blox
 *Add option to spawn projectiles
+*Add player Damage Other Mob thing
 *R-Click event
 *Left click event
 *Add action for potionEffects, soundEffects, etc...

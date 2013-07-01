@@ -11,7 +11,7 @@ import javax.swing.SpinnerModel;
 public class LocationsList extends JComboBox {
 	private static final long serialVersionUID = -6570143230108119046L;
 	private WindowArea window = null;
-	private ArrayList<String> locations = new ArrayList<String>();
+	public ArrayList<String> locations = new ArrayList<String>();
 	@SuppressWarnings("unchecked")
 	public LocationsList(WindowArea area){
 		this.window = area;

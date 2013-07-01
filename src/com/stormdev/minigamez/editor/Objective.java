@@ -313,6 +313,8 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("spawnEntity")){
     		LocationsList loc = new LocationsList(this.window);
+    		loc.locations.add("involvedPlayerLocation");
+    		loc.draw();
     		OptionList mob = new OptionList(this.window);
     		mob.setVals(Mobs.getMobs());
     		mob.draw();

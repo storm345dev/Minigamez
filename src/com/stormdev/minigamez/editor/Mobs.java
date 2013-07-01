@@ -38,6 +38,7 @@ public class Mobs {
 		toReturn.add("Wither");
 		toReturn.add("WitherSkeleton");
 		toReturn.add("Wolf");
+		toReturn.add("XpOrbs");
 		toReturn.add("Zombie");
 		toReturn.add("ZombiePigman");
 		return toReturn;
