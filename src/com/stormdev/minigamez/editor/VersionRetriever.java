@@ -1,22 +1,15 @@
 package com.stormdev.minigamez.editor;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
 
 import javax.swing.Action;
@@ -26,9 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.ProgressMonitorInputStream;
-
-import org.bukkit.ChatColor;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 
 import com.stormdev.minigamez.utils.GetStringFromUrl;
 
@@ -140,6 +134,7 @@ public class VersionRetriever implements PropertyChangeListener {
     	//progressPanel.add(loading);
     	this.window.splitPane.setRightComponent(progressPanel);
     	System.out.println("Updating...");
+    	String changeLog = GetStringFromUrl.get("https://dl.dropboxusercontent.com/u/147363358/minigamez/changelog.txt");
     	try {
     		this.update = new Update(downloadUrl, this);
     		update.addPropertyChangeListener(this);
@@ -149,12 +144,24 @@ public class VersionRetriever implements PropertyChangeListener {
     		JLabel title = new JLabel("Update Progress");
     		Font titleFont = new Font("Title", Font.BOLD, 36);
     		title.setFont(titleFont);
+    		JTextPane changelog = new JTextPane();
+    		if(changeLog != null){
+    			changelog.setText("ChangeLog:\n"+changeLog);
+    			changelog.setEditable(false);
+    		}
     		JPanel titlePanel = new JPanel(new FlowLayout());
     		titlePanel.add(title, JPanel.CENTER_ALIGNMENT);
     		progressPanel.add(titlePanel);
     		JPanel bar = new JPanel(new FlowLayout());
     		bar.add(progressBar);
     		progressPanel.add(bar);
+    		JPanel changePanel = new JPanel(new FlowLayout());
+    		JScrollPane changes = new JScrollPane(changelog);
+    		Dimension d = new Dimension(500,100);
+    		changes.setPreferredSize(d);
+    		changes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    		changePanel.add(changes);
+    		progressPanel.add(changePanel);
     		progressBar.setVisible(true);
     		this.window.pane.removeAll();
     		this.window.pane.add(this.window.label);
