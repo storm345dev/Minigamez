@@ -1,6 +1,5 @@
 TODOS:
 *Kill mob event, countdown, wait
-*Add option to spawn more entites, not just mobs: such as minecarts.
 *Add option to spawnVehicle with option to set Passenger etc...
 *Add option to spawn falling blocks
 *Add option to spawn projectiles

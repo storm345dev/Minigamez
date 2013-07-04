@@ -62,8 +62,8 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  JLabel gameNameLabel = new JLabel();
 	  JTextField gameName = new JTextField(16);
 	  private final JSeparator separator = new JSeparator();
-	  private final JLabel label = new JLabel("");
-	  private final JSplitPane splitPane = new JSplitPane();
+	  public final JLabel label = new JLabel("");
+	  public final JSplitPane splitPane = new JSplitPane();
 	  private final JScrollPane scrollPane = new JScrollPane(optionsPane);
 	  private JScrollPane scrollPane_1 = new JScrollPane(optionSettingsPane);
 	  private final JButton btnPlayerCount = new JButton("Player settings");

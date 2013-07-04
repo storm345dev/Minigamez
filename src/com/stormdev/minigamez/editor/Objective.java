@@ -337,6 +337,17 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(new JLabel("Event to fire:"));
     		values.add(list);
     	}
+    	if(getAction().equalsIgnoreCase("wait")){
+    		JTextField delay = new JTextField(3);
+    		GameEventList list = new GameEventList(this.window);
+    		list.draw();
+    		delay.setName("actionarg0t:num");
+    		list.setName("actionarg1");
+    		values.add(new JLabel("Delay(s):"));
+    		values.add(delay);
+    		values.add(new JLabel("Event to fire:"));
+    		values.add(list);
+    	}
     	if(getAction().equalsIgnoreCase("chance")){
     		JTextField chance = new JTextField(3);
     		chance.setName("actionarg0t:chance");

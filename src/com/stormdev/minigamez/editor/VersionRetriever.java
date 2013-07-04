@@ -1,5 +1,11 @@
 package com.stormdev.minigamez.editor;
 
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -10,18 +16,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Scanner;
 
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.ProgressMonitorInputStream;
 
 import org.bukkit.ChatColor;
 
 import com.stormdev.minigamez.utils.GetStringFromUrl;
 
-public class VersionRetriever {
-
+public class VersionRetriever implements PropertyChangeListener {
+	JProgressBar progressBar;
 	String yaml = "";
+	Update update = null;
 	WindowArea window = null;
+	JPanel progressPanel = null;
 	public VersionRetriever(WindowArea area){
 		this.window = area;
 		InputStream in = null;
@@ -117,28 +133,39 @@ public class VersionRetriever {
     		this.window.popUpMsg("Download is invalid?", "Updater");
 			return;
     	}
+    	this.window.splitPane.removeAll();
+    	this.progressPanel = new JPanel(new GridLayout(0,1));
+    	final JLabel loading = new JLabel("");
+    	loading.setIcon(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/loading.gif")));
+    	//progressPanel.add(loading);
+    	this.window.splitPane.setRightComponent(progressPanel);
     	System.out.println("Updating...");
     	try {
-			URL update = new URL(downloadUrl);
-			 InputStream inUp = new BufferedInputStream(update.openStream());
-			 ByteArrayOutputStream outUp = new ByteArrayOutputStream();
-			 byte[] buf = new byte[1024];
-			 int n = 0;
-			 while (-1!=(n=inUp.read(buf)))
-			 {
-			    outUp.write(buf, 0, n);
-			 }
-			 outUp.close();
-			 inUp.close();
-			 byte[] responseUp = outUp.toByteArray();
-			 String loc = new File("").getAbsolutePath();
-			 FileOutputStream fos = new FileOutputStream(new File(loc + File.separator + "minigamez.jar"));
-			     fos.write(responseUp);
-			     fos.close();
+    		this.update = new Update(downloadUrl, this);
+    		update.addPropertyChangeListener(this);
+    		progressBar = new JProgressBar(0, 100);
+    		progressBar.setValue(0);
+    		progressBar.setStringPainted(true);
+    		JLabel title = new JLabel("Update Progress");
+    		Font titleFont = new Font("Title", Font.BOLD, 36);
+    		title.setFont(titleFont);
+    		JPanel titlePanel = new JPanel(new FlowLayout());
+    		titlePanel.add(title, JPanel.CENTER_ALIGNMENT);
+    		progressPanel.add(titlePanel);
+    		JPanel bar = new JPanel(new FlowLayout());
+    		bar.add(progressBar);
+    		progressPanel.add(bar);
+    		progressBar.setVisible(true);
+    		this.window.pane.removeAll();
+    		this.window.pane.add(this.window.label);
+    		this.window.refresh();
+    		update.execute();
+    		/*
 			     System.out.println("Updated!");
 			     JOptionPane.showMessageDialog(null,"Updated successfully!\nPlease reopen minigamez!","Updater",
 						  JOptionPane.WARNING_MESSAGE);
 			     System.exit(1);
+			     */
 					return;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -146,4 +173,53 @@ public class VersionRetriever {
 			return;
 		}
     }
+    public void onComplete(){
+    	System.out.println("Updated!");
+	     JOptionPane.showMessageDialog(null,"Updated successfully!\nPlease reopen minigamez!","Updater",
+				  JOptionPane.WARNING_MESSAGE);
+	     JButton finish = new JButton("Finish!");
+	     finish.setAction(new Action(){
+	    	 @Override
+				public void actionPerformed(ActionEvent arg0) {
+					System.exit(1);
+				}
+				@Override
+				public void addPropertyChangeListener(
+						PropertyChangeListener arg0) {
+				}
+				@Override
+				public Object getValue(String arg0) {
+					return null;
+				}
+				@Override
+				public boolean isEnabled() {
+					return true;
+				}
+				@Override
+				public void putValue(String arg0, Object arg1) {
+				}
+				@Override
+				public void removePropertyChangeListener(
+						PropertyChangeListener arg0) {
+				}
+				@Override
+				public void setEnabled(boolean arg0) {
+			}});
+	     finish.setText("Finish!");
+	     finish.setVisible(true);
+	     JPanel finishPanel = new JPanel(new FlowLayout());
+	     finishPanel.add(finish, JPanel.CENTER_ALIGNMENT);
+	     this.progressPanel.add(finishPanel);
+	     this.window.refresh();
+    	return;
+    }
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if ("progress" == event.getPropertyName()) {
+	        int progress = (int) event.getNewValue();
+	        progressBar.setValue(progress);
+	        System.out.println(progress);
+	        progressBar.setString(progress + "%");
+		}
+	}
 }
