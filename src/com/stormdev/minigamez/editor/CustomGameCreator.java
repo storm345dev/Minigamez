@@ -17,7 +17,7 @@ public class CustomGameCreator {
 		System.out.println("Window open!");
 		System.out.println("Loaded!");
 		UpdateChecker checker = new UpdateChecker(window);
-		checker.execute();
+		checker.execute(); //Check for updates async
         return;
 	}
 
