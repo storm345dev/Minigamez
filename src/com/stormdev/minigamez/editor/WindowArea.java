@@ -55,7 +55,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	JLabel spacer7 = new JLabel(" ");
 	JLabel spacer8 = new JLabel(" ");
 	JLabel spacer9 = new JLabel(" ");
-	Locations locations = new Locations(this);
+	Locations locations = null;
 	  JLabel result = new JLabel();
 	  JButton saveButton = new JButton();
 	  JButton loadButton = new JButton();
@@ -99,6 +99,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  {
 	    super("Minigame Editor"); 
 	    this.setIconImage(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/1.png")).getImage());
+	    this.locations = new Locations(this);
 	    optionsPane.add(btnPlayerCount);
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
@@ -331,7 +332,17 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 		  return;
 	  }
     public void refresh(){
-    	Rectangle size = getBounds();
+    	  this.splitPane.revalidate();
+    	  //this.pane.revalidate();
+    	  /*
+    	  Rectangle size = getBounds();
+		  pack();
+		  setBounds(size);
+		  */
+		  return;
+    }
+    public void fullRefresh(){
+    	  Rectangle size = getBounds();
 		  pack();
 		  setBounds(size);
 		  return;

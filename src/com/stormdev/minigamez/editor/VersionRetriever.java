@@ -165,7 +165,7 @@ public class VersionRetriever implements PropertyChangeListener {
     		progressBar.setVisible(true);
     		this.window.pane.removeAll();
     		this.window.pane.add(this.window.label);
-    		this.window.refresh();
+    		this.window.fullRefresh();
     		update.execute();
     		/*
 			     System.out.println("Updated!");
@@ -217,7 +217,7 @@ public class VersionRetriever implements PropertyChangeListener {
 	     JPanel finishPanel = new JPanel(new FlowLayout());
 	     finishPanel.add(finish, JPanel.CENTER_ALIGNMENT);
 	     this.progressPanel.add(finishPanel);
-	     this.window.refresh();
+	     this.window.fullRefresh();
     	return;
     }
 	@Override
