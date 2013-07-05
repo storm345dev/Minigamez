@@ -25,7 +25,12 @@ public class GetStringFromUrl {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));   				
 				String line;
 				while((line = reader.readLine()) != null){
-					result = line;
+					if(result == null){
+						result = line;
+					}
+					else{
+					result = result + System.getProperty("line.separator") + line;
+					}
 				}
 			} catch (Exception e){
 				

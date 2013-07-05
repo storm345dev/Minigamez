@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,10 +37,14 @@ import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import java.text.Format;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.JSplitPane;
 
 import com.stormdev.minigamez.utils.GameScheduler;
+import com.stormdev.minigamez.utils.GetStringFromUrl;
+import com.sun.xml.internal.txw2.Document;
+import com.sun.xml.internal.txw2.output.XmlSerializer;
 
 public class WindowArea extends JFrame implements ActionListener,ChangeListener {
 	JPanel pane = new JPanel();
@@ -66,6 +71,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  public final JSplitPane splitPane = new JSplitPane();
 	  private final JScrollPane scrollPane = new JScrollPane(optionsPane);
 	  private JScrollPane scrollPane_1 = new JScrollPane(optionSettingsPane);
+	  private final JButton btnHome = new JButton("Home");
 	  private final JButton btnPlayerCount = new JButton("Player settings");
 	  private final JButton btnTeamSettings = new JButton("Team settings");
 	  private final JButton btnLocationSettings = new JButton("Locations");
@@ -84,6 +90,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private JPanel optionsPoints = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsCustomEvents = new JPanel(new GridLayout(0,2));
 	  private JPanel optionsScheduler = new JPanel(new GridLayout(0,2));
+	  JEditorPane home = null;
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
 	  JCheckBox usePoints = new JCheckBox("Use Points", true);
@@ -100,6 +107,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    super("Minigame Editor"); 
 	    this.setIconImage(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/1.png")).getImage());
 	    this.locations = new Locations(this);
+	    optionsPane.add(btnHome);
 	    optionsPane.add(btnPlayerCount);
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
@@ -149,6 +157,42 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    btnPoints.addActionListener(this);
 	    btnCustomEvents.addActionListener(this);
 	    btnScheduler.addActionListener(this);
+	    btnHome.addActionListener(this);
+	    //start homepage
+	    home = new JEditorPane();
+	    home.setEditable(false);   
+
+	    try {
+	      //home.setPage("https://dl.dropboxusercontent.com/u/50672767/minigamez/site/home.txt");
+	    	home.setContentType("text/html");
+	    	String doc = GetStringFromUrl.get("https://dl.dropboxusercontent.com/u/50672767/minigamez/site/home.mgpage");
+	    	doc = doc.replaceAll(Pattern.quote("}"), "</div>");
+	    	doc = doc.replaceAll(Pattern.quote("{"), "<div class='content'>");
+	    	doc = "<style type='text/css'>body{font-family:Calibri,Veranda,Arial;font-size:16pt;background-image:url('https://dl.dropboxusercontent.com/u/50672767/minigamez/site/iron_block.png')}h1{font-size:30pt;}h2{font-size:20pt;}.content{background-image:url('https://dl.dropboxusercontent.com/u/50672767/minigamez/site/translucent.png')}</style>"+doc;
+	    	doc = doc.replaceAll("¬", "&nbsp;");
+	    	doc = doc.replaceAll(System.getProperty("line.separator"), "<br>");
+	    	doc = doc.replaceAll(Pattern.quote("\\"), "<br>");
+	    	doc = doc.replaceAll("<big>", "<h1>");
+	    	doc = doc.replaceAll("</big>", "</h1>");
+	    	doc = doc.replaceAll("<med>", "<h2>");
+	    	doc = doc.replaceAll("</med>", "</h2>");
+	    	doc = doc.replaceAll("<para>", "<p>");
+	    	doc = doc.replaceAll("</para>", "</p>");
+	    	doc = doc.replaceAll("<small>", "<h5>");
+	    	doc = doc.replaceAll("</small>", "</h5>");
+	    	doc = doc.replaceAll(Pattern.quote("/**"), "</strong>");
+	    	doc = doc.replaceAll(Pattern.quote("**"), "<strong>");
+	    	doc = doc.replaceAll(Pattern.quote("/--"), "</s>");
+	    	doc = doc.replaceAll(Pattern.quote("--"), "<s>");
+	    	doc = doc.replaceAll(Pattern.quote("/~~"), "</em>");
+	    	doc = doc.replaceAll(Pattern.quote("~~"), "<em>");
+	    	home.setText(doc);
+	    }catch (Exception e) {
+	      home.setText("<html>Failed to load information!</html>");
+	    } 
+	    home.setPreferredSize(optionSettingsPane.getSize());
+	    setPanelComponent(optionSettingsPane, home);
+	    //end home page
 	  //start player options page
 	    JLabel playerCountOptionsTitle = new JLabel("Player Settings:");
 	    playerCountOptionsTitle.setFont(title);
@@ -300,6 +344,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    	System.out.println("Option: Game scheduler");
 	    	this.scheduler.draw(this);
 	    	setPanelComponent(optionSettingsPane, optionsScheduler);
+	      return;
+	    }
+	    if (source == btnHome)
+	    {
+	    	System.out.println("Option: Home");
+	    	setPanelComponent(optionSettingsPane, home);
 	      return;
 	    }
       }
