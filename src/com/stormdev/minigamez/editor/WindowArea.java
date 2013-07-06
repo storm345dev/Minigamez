@@ -166,26 +166,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	      //home.setPage("https://dl.dropboxusercontent.com/u/50672767/minigamez/site/home.txt");
 	    	home.setContentType("text/html");
 	    	String doc = GetStringFromUrl.get("https://dl.dropboxusercontent.com/u/50672767/minigamez/site/home.mgpage");
-	    	doc = doc.replaceAll(Pattern.quote("}"), "</div>");
-	    	doc = doc.replaceAll(Pattern.quote("{"), "<div class='content'>");
-	    	doc = "<style type='text/css'>body{font-family:Calibri,Veranda,Arial;font-size:16pt;background-image:url('https://dl.dropboxusercontent.com/u/50672767/minigamez/site/iron_block.png')}h1{font-size:30pt;}h2{font-size:20pt;}.content{background-image:url('https://dl.dropboxusercontent.com/u/50672767/minigamez/site/translucent.png')}</style>"+doc;
-	    	doc = doc.replaceAll("¬", "&nbsp;");
-	    	doc = doc.replaceAll(System.getProperty("line.separator"), "<br>");
-	    	doc = doc.replaceAll(Pattern.quote("\\"), "<br>");
-	    	doc = doc.replaceAll("<big>", "<h1>");
-	    	doc = doc.replaceAll("</big>", "</h1>");
-	    	doc = doc.replaceAll("<med>", "<h2>");
-	    	doc = doc.replaceAll("</med>", "</h2>");
-	    	doc = doc.replaceAll("<para>", "<p>");
-	    	doc = doc.replaceAll("</para>", "</p>");
-	    	doc = doc.replaceAll("<small>", "<h5>");
-	    	doc = doc.replaceAll("</small>", "</h5>");
-	    	doc = doc.replaceAll(Pattern.quote("/**"), "</strong>");
-	    	doc = doc.replaceAll(Pattern.quote("**"), "<strong>");
-	    	doc = doc.replaceAll(Pattern.quote("/--"), "</s>");
-	    	doc = doc.replaceAll(Pattern.quote("--"), "<s>");
-	    	doc = doc.replaceAll(Pattern.quote("/~~"), "</em>");
-	    	doc = doc.replaceAll(Pattern.quote("~~"), "<em>");
+	    	doc = MgPageReader.toHtml(doc, home);
 	    	home.setText(doc);
 	    }catch (Exception e) {
 	      home.setText("<html>Failed to load information!</html>");
