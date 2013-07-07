@@ -1,5 +1,5 @@
 TODOS:
-*Able to keep track of a score
+*Able to keep track of a score on actions and events
 *Add option to spawnVehicle with option to set Passenger etc...
 *Add option to spawn falling blocks
 *Add option to spawn projectiles
