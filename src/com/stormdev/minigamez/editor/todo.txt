@@ -1,5 +1,4 @@
 TODOS:
-*Finish updater to allow for bukkit links
 *Kill mob event, countdown, wait
 *Add option to spawnVehicle with option to set Passenger etc...
 *Add option to spawn falling blocks
