@@ -178,6 +178,30 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(new JLabel("Pts reached:"));
     		values.add(pts);
     	}
+    	if(getEvent().equalsIgnoreCase("killMobEvent")){
+    		OptionList mob = new OptionList(this.window);
+    		ArrayList<String> mobs = Mobs.getMobs();
+    		mobs.add("Any");
+    		mobs.add("Player");
+    		mobs.add("EnemyPlayer");
+    		mob.setVals(mobs);
+    		mob.draw();
+    		mob.setSelectedItem("Any");
+    		mob.setName("eventarg1");
+    		WhoList killer = new WhoList(this.window);
+    		killer.who.add("Anyone");
+    		killer.who.remove("allPlayers");
+    		killer.who.remove("involvedPlayer");
+    		killer.who.remove("RandomPlayer");
+    		killer.who.remove("randomTeam");
+    		killer.draw();
+    		killer.setSelectedItem("Anyone");
+    		killer.setName("eventarg0");
+    		values.add(new JLabel("Killer:"));
+    		values.add(killer);
+    		values.add(new JLabel("Killed:"));
+    		values.add(mob);
+    	}
     	if(getEvent().equalsIgnoreCase("teamMateArriveAtLocation")){
     		if(!this.window.useTeams.isSelected()){
     			this.window.popUpMsg("This event doesn't function with teams disabled!", "WARNING");
@@ -259,6 +283,7 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("setMetadata")){
     		WhoList who = new WhoList(this.window);
+    		who.who.add("involvedEntity");
     		who.update();
     		who.draw();
     		who.setName("actionarg0");
@@ -271,6 +296,7 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("removeMetadata")){
     		WhoList who = new WhoList(this.window);
+    		who.who.add("involvedEntity");
     		who.update();
     		who.draw();
     		who.setName("actionarg0");
@@ -283,6 +309,7 @@ public class Objective extends JPanel implements ActionListener{
     	}
     	if(getAction().equalsIgnoreCase("ifHasMetadata")){
     		WhoList who = new WhoList(this.window);
+    		who.who.add("involvedEntity");
     		who.update();
     		who.draw();
     		who.setName("actionarg0");
@@ -334,6 +361,17 @@ public class Objective extends JPanel implements ActionListener{
     		GameEventList list = new GameEventList(this.window);
     		list.draw();
     		list.setName("actionarg0");
+    		values.add(new JLabel("Event to fire:"));
+    		values.add(list);
+    	}
+    	if(getAction().equalsIgnoreCase("countdown")){
+    		JTextField delay = new JTextField(3);
+    		GameEventList list = new GameEventList(this.window);
+    		list.draw();
+    		delay.setName("actionarg0t:num");
+    		list.setName("actionarg1");
+    		values.add(new JLabel("Countdown Length(s):"));
+    		values.add(delay);
     		values.add(new JLabel("Event to fire:"));
     		values.add(list);
     	}

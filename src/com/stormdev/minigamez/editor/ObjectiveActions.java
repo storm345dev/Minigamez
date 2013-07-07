@@ -27,6 +27,7 @@ public class ObjectiveActions extends OptionList {
 		vals.add("setMetadata");
 		vals.add("removeMetadata");
 		vals.add("ifHasMetadata");
+		vals.add("countdown");
 		vals.add("wait");
 		this.setVals(vals);
 	}

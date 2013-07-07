@@ -30,6 +30,7 @@ public class GameEventList extends OptionList {
 		vals.add("playerQuitGame");
 		vals.add("playerRespawn");
 		vals.add("reachXPoints");
+		vals.add("killMobEvent");
 		for(String s:vals){
 			this.official.add(s);
 		}

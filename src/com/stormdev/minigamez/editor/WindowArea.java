@@ -81,16 +81,19 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  private final JButton btnPoints = new JButton("Points");
 	  private final JButton btnCustomEvents = new JButton("Custom Events");
 	  private final JButton btnScheduler = new JButton("Scheduler");
+	  private final JButton btnScores = new JButton("Custom Scores");
 	  private JPanel optionsPlayerCount = new JPanel(new GridLayout(0,2));
 	  JTextField minPlayers = new JTextField(16);
 	  JTextField maxPlayers = new JTextField(16);
-	  private JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsObjectives = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsRules = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsPoints = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsCustomEvents = new JPanel(new GridLayout(0,2));
-	  private JPanel optionsScheduler = new JPanel(new GridLayout(0,2));
+	  public CustomScoreManager scores = null;
+	  public JPanel optionsTeamSettings = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsLocationSettings = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsObjectives = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsRules = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsPoints = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsCustomEvents = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsScheduler = new JPanel(new GridLayout(0,2));
+	  public JPanel optionsScores = new JPanel(new GridLayout(0,2));
 	  JEditorPane home = null;
 	  JCheckBox useTeams = new JCheckBox("Use teams", true);
 	  JCheckBox arenaCustomTeams = new JCheckBox("Allow arena's to customise team names (but not amount)", false);
@@ -113,6 +116,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    optionsPane.add(btnTeamSettings);
 	    optionsPane.add(btnLocationSettings);
 	    optionsPane.add(btnCustomEvents);
+	    optionsPane.add(btnScores);
 	    optionsPane.add(btnObjectives);
 	    optionsPane.add(btnScheduler);
 	    optionsPane.add(btnRules);
@@ -159,6 +163,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    btnCustomEvents.addActionListener(this);
 	    btnScheduler.addActionListener(this);
 	    btnHome.addActionListener(this);
+	    btnScores.addActionListener(this);
 	    //start homepage
 	    home = new JEditorPane();
 	    home.setEditable(false);   
@@ -247,6 +252,15 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
         this.scheduler.draw(this);
         optionsScheduler.add(this.scheduler);
 	    //end sch settings page
+        //start scores settings page
+        this.scores = new CustomScoreManager(this);
+        JLabel scoTitle = new JLabel("Custom Scores:");
+	    scoTitle.setFont(title);
+        this.scores.draw();
+        optionsScores.add(scoTitle);
+        optionsScores.add(new JLabel(" "));
+        optionsScores.add(this.scores);
+        //end scores settings page
 	  }
 	  public ArrayList<String> getTeams(){
 		  String teamsRaw = this.teams.getText();
@@ -326,6 +340,12 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	    	System.out.println("Option: Game scheduler");
 	    	this.scheduler.draw(this);
 	    	setPanelComponent(optionSettingsPane, optionsScheduler);
+	      return;
+	    }
+	    if (source == btnScores)
+	    {
+	    	System.out.println("Option: Scores");
+	    	setPanelComponent(optionSettingsPane, optionsScores);
 	      return;
 	    }
 	    if (source == btnHome)

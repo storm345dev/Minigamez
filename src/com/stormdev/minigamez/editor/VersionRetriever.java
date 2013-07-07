@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -33,7 +34,8 @@ import javax.swing.border.Border;
 import com.stormdev.minigamez.utils.GetStringFromUrl;
 import com.stormdev.minigamez.utils.ListStore;
 
-public class VersionRetriever implements PropertyChangeListener {
+public class VersionRetriever implements PropertyChangeListener,Serializable {
+	private static final long serialVersionUID = 863381157062949559L;
 	JProgressBar progressBar;
 	String yaml = "";
 	Update update = null;
