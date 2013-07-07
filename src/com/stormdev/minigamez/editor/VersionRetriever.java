@@ -8,8 +8,14 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Scanner;
 
 import javax.swing.Action;
@@ -25,6 +31,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
 import com.stormdev.minigamez.utils.GetStringFromUrl;
+import com.stormdev.minigamez.utils.ListStore;
 
 public class VersionRetriever implements PropertyChangeListener {
 	JProgressBar progressBar;
@@ -127,6 +134,43 @@ public class VersionRetriever implements PropertyChangeListener {
     		this.window.popUpMsg("Download is invalid?", "Updater");
 			return;
     	}
+    	if(isBukkit && !isJar){
+    		try {
+    			System.out.println("Download Url: "+downloadUrl);
+				String htmlCode = "";
+				URL bukkiturl = new URL(downloadUrl); //Open latest version's page...
+				URLConnection urlConnection = (URLConnection)bukkiturl.openConnection();
+				InputStreamReader inStream = new InputStreamReader(urlConnection.getInputStream());
+				BufferedReader buff = new BufferedReader(inStream);
+				while(true){
+				    if (buff.readLine()!=null){
+				        htmlCode += buff.readLine() + "\n";
+				    }else{
+				        break;
+				    }
+				}
+				htmlCode = htmlCode.replaceAll(" ", "");
+       htmlCode = htmlCode.replaceAll("	", "");
+     htmlCode = htmlCode.replaceAll("\n", "").replace("\r", "");
+     //<dd><spanclass="standard-date"title="Jan29,2013at17:04UTC"data-epoch="1359479056"data-shortdate="true">Jan29,2013</span></dd><dt>Gameversion</dt><dd><ahref="http://dev.bukkit.org/media/files/668/500/useful.jar">useful.jar</a>
+	File debug = new File(new File("").getAbsolutePath()+File.separator+"Minigamez"+File.separator+"debug.txt");
+    debug.createNewFile(); 
+	ListStore list = new ListStore(debug);	
+	list.add(htmlCode);
+	list.save();
+     int startFrom = htmlCode.indexOf("<liclass=\"user-actionuser-action-download\"><span><ahref=\""); //Find the .jar's download url
+				int endFrom = htmlCode.indexOf("\">D", startFrom);
+				downloadUrl = htmlCode.substring(startFrom, endFrom);
+				downloadUrl = downloadUrl.replaceFirst("<liclass=\"user-actionuser-action-download\"><span><ahref=\"", "");
+				System.out.println("Jar url: "+downloadUrl);
+				isJar = true; //DownloadUrl is a of jar file now
+				isBukkit = false; //No longer need to track if bukkit
+			} catch (Exception e) {
+		        this.window.popUpMsg("Error fetching jar!", "ERROR");
+				e.printStackTrace();
+			}
+    	}
+    	if(isJar){
     	this.window.splitPane.removeAll();
     	this.progressPanel = new JPanel(new GridLayout(0,1));
     	final JLabel loading = new JLabel("");
@@ -179,6 +223,7 @@ public class VersionRetriever implements PropertyChangeListener {
 			this.window.popUpMsg("Failed to update!", "Updater");
 			return;
 		}
+    	}
     }
     public void onComplete(){
     	System.out.println("Updated!");

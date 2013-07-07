@@ -47,6 +47,7 @@ import com.sun.xml.internal.txw2.Document;
 import com.sun.xml.internal.txw2.output.XmlSerializer;
 
 public class WindowArea extends JFrame implements ActionListener,ChangeListener {
+	private static final long serialVersionUID = -5598775561489990797L;
 	JPanel pane = new JPanel();
 	JPanel optionsPane = new JPanel(new GridLayout(0,1));
 	JPanel optionSettingsPane = new JPanel();
@@ -104,7 +105,7 @@ public class WindowArea extends JFrame implements ActionListener,ChangeListener 
 	  public EventScheduler scheduler = null;
 	  WindowArea() // the frame constructor method
 	  {
-	    super("Minigame Editor"); 
+	    super("Minigamez Editor"); 
 	    this.setIconImage(new ImageIcon(WindowArea.class.getResource("/com/stormdev/minigamez/editor/1.png")).getImage());
 	    this.locations = new Locations(this);
 	    optionsPane.add(btnHome);
