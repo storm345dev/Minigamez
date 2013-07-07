@@ -4,7 +4,9 @@ bin/
 #eclipse
 .classpath
 .project
+.bat
 .settings/
 
 #maven
 target/
+/startgource.bat
