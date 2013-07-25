@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -216,6 +217,34 @@ public class Objective extends JPanel implements ActionListener{
     		values.add(loc);
     		values.add(new JLabel("Team:"));
     		values.add(team);
+    	}
+    	if(getEvent().equalsIgnoreCase("onScoreChange")){
+    		OptionList score = new OptionList(this.window);
+    		ArrayList<String> scores = new ArrayList<String>();
+    		for(Score s:this.window.scores.scores){
+    			scores.add(s.name);
+    		}
+    		scores.add("any");
+    		score.setVals(scores);
+    		score.setName("eventarg0");
+    		score.draw();
+    		score.setSelectedItem("any");
+    		OptionList ifEqual = new OptionList(this.window);
+    		ArrayList<String> options = new ArrayList<String>();
+    		options.add("UseIfEqualTo");
+    		options.add("DontUseIfEqualTo");
+    		ifEqual.setVals(options);
+    		ifEqual.draw();
+    		ifEqual.setSelectedItem("DontUseIfEqualTo");
+    		ifEqual.setName("eventarg1");
+    		JTextField equalTo = new JTextField(16);
+    		equalTo.setText("0");
+    		equalTo.setName("eventarg2");
+    		values.add(new JLabel("Score(Changed):"));
+    		values.add(score);
+    		values.add(ifEqual);
+    		values.add(new JLabel("If score equal to:"));
+    		values.add(equalTo);
     	}
     	if(getAction().equalsIgnoreCase("sendMessage")){
     		JTextField toSend = new JTextField(16);
