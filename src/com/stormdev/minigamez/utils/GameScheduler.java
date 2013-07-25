@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import org.fusesource.jansi.Ansi.Color;
 import com.stormdev.minigamez.main.minigamez;
 
 public class GameScheduler {
